@@ -17071,5 +17071,3 @@ select.sort {
 .modal-backdrop {display: none; transition: all 0.4s ease; }
 .modal-backdrop.active {display: block; opacity: 0.6;}
 .modal.show {display: block;}
-
-

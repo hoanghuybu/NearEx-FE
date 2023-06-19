@@ -56,7 +56,7 @@ class Header extends Component {
                                 </div>
                                 <a href="/Notification" className="nav-icon"><span className="dot-count bg-warning"></span><i className="feather-bell text-grey-500"></i></a>
                                 <a href="/Saved" className="nav-icon"><i className="feather-heart text-grey-500"></i></a>
-                                <Button onClick={()=>{this.handleCart()}} className="nav-icon bg-transparent border-0 mt-n1 posr"><i className="feather-shopping-bag text-grey-500"></i></Button>
+                                <Button onClick={()=>{this.handleCart()}} className="nav-icon bg-transparent border-0 mt-n2 posr"><i className="feather-shopping-bag text-grey-500"></i></Button>
 
                                 <Modal {...this.props} aria-labelledby="contained-modal-title-vcenter" centered show={this.state.cart} className="right">
                                     <Button onClick={()=>{this.handleCart()}} className="btn-close z-index-5 posa right-0 top-0 mt-3 me-3 font-xss"></Button>

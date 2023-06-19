@@ -72,17 +72,19 @@ class Homefour extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-3 pe-lg-0 d-none d-lg-block lower-header z-index-2">
-                                <ul className="dropdown-menu show w-100 posr mt-0 h-100 pt-2 p-3 pb-1 shadow-none bg-lightgrey border-0 rounded-6">
-                                    <li><a className="dropdown-item dropdown-toggle" href="/g-4">Biscuits Snacks  </a></li>
-                                    <li><a className="dropdown-item dropdown-toggle" href="/g-4">Breads Bakery </a></li>
-                                    <li><a className="dropdown-item dropdown-toggle" href="/g-4">Breakfast Dairy </a></li>
-                                    <li><a className="dropdown-item dropdown-toggle" href="/g-4">Frozen Foods </a></li>
-                                    <li><a className="dropdown-item dropdown-toggle" href="/g-4">Fruits Vegetables </a></li>
-                                    <li><a className="dropdown-item dropdown-toggle" href="/g-4">Grocery Staples </a></li>
-                                    <li><a className="dropdown-item dropdown-toggle" href="/g-4">Household Needs </a></li>
-                                    <li><a className="dropdown-item dropdown-toggle" href="/g-4">Meats Seafood </a></li>
-                                    <li><a className="dropdown-item dropdown-toggle" href="/g-4">Fruits Vegetables </a></li>
-                                    <li><a className="dropdown-item dropdown-toggle" href="/g-4">Grocery Staples </a></li>
+                                <ul className="dropdown-menu show w-100 posr mt-0 h-100 pt-2 p-3 pb-1 shadow-none bg-lightgrey border-0 rounded-6">                                   
+                                    <li><a className="dropdown-item dropdown-toggle" href="/shop-4">Đồ Uống - Giải Khát  </a></li>
+                                    <li><a className="dropdown-item dropdown-toggle" href="/shop-4">Đồ uống có cồn  </a></li>
+                                    <li><a className="dropdown-item dropdown-toggle" href="/shop-4">Bánh Mì  </a></li>
+                                    <li><a className="dropdown-item dropdown-toggle" href="/shop-4">Xúc xích - Thịt nguội </a></li>
+                                    <li><a className="dropdown-item dropdown-toggle" href="/shop-4">Mì - Thực phẩm ăn liền </a></li>
+                                    <li><a className="dropdown-item dropdown-toggle" href="/shop-4">Thịt - Hải sản tươi </a></li>
+                                    <li><a className="dropdown-item dropdown-toggle" href="/shop-4">Rau - Củ - Trái Cây </a></li>
+                                    <li><a className="dropdown-item dropdown-toggle" href="/shop-4">Sữa các loại</a></li>
+                                    <li><a className="dropdown-item dropdown-toggle" href="/shop-4">Bánh Kẹo </a></li>
+                                    <li><a className="dropdown-item dropdown-toggle" href="/shop-4">Trứng - Đậu Hũ </a></li>
+                                    <li><a className="dropdown-item dropdown-toggle" href="/shop-4">Gia vị </a></li>
+                                    <li><a className="dropdown-item dropdown-toggle" href="/shop-4">Thực Phẩm Đông Lạnh </a></li>
                                 </ul>
                             </div>
                             <div className="col-lg-6">

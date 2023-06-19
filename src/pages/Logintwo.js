@@ -7,8 +7,8 @@ class Logintwo extends Component {
 
                 <div className="main-wrap min-vh-100">
 
-                    <div className="nav-header bg-transparent shadow-none border-0 position-fixed zindex-900 w-100 p-3 text-center d-lg-block d-none">
-                        <a href="/"><img src="assets/images/logo.png" alt="logo" className="w-125" /></a>
+                    <div className="nav-header bg-transparent shadow-none border-0 position-fixed zindex-900 w-100 p-5 text-center d-lg-block d-none ">
+                        <a href="/"><img src="assets/images/nearex-2.png" alt="logo" className="w-225" /></a>
                     </div>
             
                     
@@ -42,8 +42,8 @@ class Logintwo extends Component {
                                 <div className="col-sm-12 p-0 text-center mt-2 mb-3">
                                     
                                     <h6 className="mb-0 d-inline-block fw-500 font-xssss text-grey-500 mb-3">Or, Sign in with your social account </h6>
-                                    <div className="form-group mb-1"><a href="/" className="text-start font-xsss style2-input text-grey-900 fw-600 bg-greylight border-0 p-0 mb-2"><img src="assets/images/icon-1.png" alt="icon" className="ms-2 w-40 mb-1 me-5" /> Sign in with Google</a></div>
-                                    <div className="form-group mb-1"><a href="/" className="text-start font-xsss style2-input text-white fw-600 bg-twiiter border-0 p-0 "><img src="assets/images/icon-3.png" alt="icon" className="ms-2 w-40 mb-1 me-5" /> Sign in with Facebook</a></div>
+                                    <div className="form-group mb-1"><a href="/" className="text-start font-xsss style2-input text-grey-900 fw-600 bg-greylight border-0 p-0 mb-2"><img src="assets/images/icons8-google-240.svg" alt="icon" className="ms-2 w-40 mb-1 me-5" /> Sign in with Google</a></div>
+                                    {/* <div className="form-group mb-1"><a href="/" className="text-start font-xsss style2-input text-white fw-600 bg-twiiter border-0 p-0 "><img src="assets/images/icon-3.png" alt="icon" className="ms-2 w-40 mb-1 me-5" /> Sign in with Facebook</a></div> */}
                                 </div>
                             </div>
                         </div> 

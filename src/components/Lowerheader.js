@@ -31,7 +31,7 @@ class Lowerheader extends Component {
                                                 <Navbar expand="lg" className="dropdown-navbar">
                                                     <Navbar id="basic-navbar-nav" className="w-100 d-block">
                                                         <Nav>
-                                                            <NavDropdown title="Beverages" id="basic-nav-dropdown">
+                                                            {/* <NavDropdown title="Beverages" id="basic-nav-dropdown">
                                                                 <NavDropdown.Item href="#action/3.1">Water</NavDropdown.Item>
                                                                 <NavDropdown.Item href="#action/3.2">Sparkling Water</NavDropdown.Item>
                                                                 <NavDropdown.Item href="#action/3.3">Soda Pop</NavDropdown.Item>
@@ -75,7 +75,19 @@ class Lowerheader extends Component {
                                                             <Nav.Link href="#Hone">Honey Vegetables </Nav.Link>
                                                             <Nav.Link href="#Marmalade">Marmalades Staples </Nav.Link>
                                                             <Nav.Link href="#Sour">Sour Cream and Dips </Nav.Link>
-                                                            <Nav.Link href="#Yogur">Yogurt Seafood </Nav.Link>
+                                                            <Nav.Link href="#Yogur">Yogurt Seafood </Nav.Link> */}
+                                                            <Nav.Link href="/shop-4">Đồ Uống - Giải Khát </Nav.Link>
+                                                            <Nav.Link href="/shop-4">Đồ uống có cồn </Nav.Link>
+                                                            <Nav.Link href="/shop-4">Bánh Mì </Nav.Link>
+                                                            <Nav.Link href="/shop-4">Xúc xích - Thịt nguội </Nav.Link>
+                                                            <Nav.Link href="/shop-4">Mì - Thực phẩm ăn liền </Nav.Link>
+                                                            <Nav.Link href="/shop-4">Thịt - Hải sản tươi </Nav.Link>
+                                                            <Nav.Link href="/shop-4">Rau - Củ - Trái Cây </Nav.Link>
+                                                            <Nav.Link href="/shop-4">Sữa các loại </Nav.Link>
+                                                            <Nav.Link href="/shop-4">Bánh Kẹo </Nav.Link>
+                                                            <Nav.Link href="/shop-4">Trứng - Đậu Hũ </Nav.Link>
+                                                            <Nav.Link href="/shop-4">Gia vị </Nav.Link>
+                                                            <Nav.Link href="/shop-4">Thực Phẩm Đông Lạnh</Nav.Link>
                                                         </Nav>
                                                     </Navbar>
                                                 </Navbar>
