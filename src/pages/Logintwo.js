@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import axios from 'axios';
 
 class Logintwo extends Component {
     render() {
@@ -79,7 +80,7 @@ class Logintwo extends Component {
                                         </h6>
                                         <div className="form-group mb-1">
                                             <a
-                                                href="/"
+                                                href="http://localhost:3001/auth/google/callback?scope=email profile"
                                                 className="text-start font-xsss style2-input text-grey-900 fw-600 bg-greylight border-0 p-0 mb-2"
                                             >
                                                 <img
