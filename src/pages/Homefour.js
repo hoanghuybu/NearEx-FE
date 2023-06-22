@@ -6,7 +6,7 @@ import Headermob from '../components/Headermob';
 import Upperheader from '../components/Upperheader';
 import Lowerheader from '../components/Lowerheader';
 import Footertwo from '../components/Footertwo';
-import Blog from '../components/Blog';
+// import Blog from '../components/Blog';
 import Catagorysldier from '../components/Catagorysldier';
 import Addbannerone from '../components/Addbannerone';
 import Addbannerfour from '../components/Addbannerfour';
