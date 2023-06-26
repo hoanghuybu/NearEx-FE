@@ -4,7 +4,7 @@ class Registertwo extends Component {
     render() {
         return (
             <Fragment>
-                <div className="main-wrap min-vh-100">
+                <div className="login-wrapper main-wrap min-vh-100">
                     <div className="nav-header bg-transparent shadow-none border-0 position-fixed zindex-900 w-100 p-3 text-center d-lg-block d-none">
                         <a href="/">
                             <img src="assets/images/logo.png" alt="logo" className="w-125" />
@@ -28,11 +28,11 @@ class Registertwo extends Component {
                                         />
                                     </div>
                                     <div className="form-group icon-input mb-3">
-                                        <i className="font-sm ti-email text-grey-500 pe-0"></i>
+                                        <i className="font-sm ti-headphone-alt text-grey-500 pe-0"></i>
                                         <input
                                             type="text"
                                             className="style2-input ps-5 form-control text-grey-900 white-text font-xsss fw-600"
-                                            placeholder="Email Address"
+                                            placeholder="Phone Number"
                                         />
                                     </div>
                                     <div className="form-group icon-input mb-3">

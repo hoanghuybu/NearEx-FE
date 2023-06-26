@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Test() {
     const [userInfo, setUserInfo] = useState(null);
     const [idToken, setIdToken] = useState(null);
-
+    const history = useHistory();
     function handleCallBackRespone(response) {
+        localStorage.setItem('jwtToken', response.credential);
+        var x = localStorage.getItem('jwtToken');
+        if (x) {
+            history.push('/test2');
+        }
+
+        setTimeout(() => {
+            localStorage.removeItem('jwtToken');
+            setIdToken('');
+            setUserInfo({});
+        }, 1 * 60 * 1000); // 30 phút x 60 giây x 1000 mili giây
         setIdToken(response.credential);
         var userObject = jwt_decode(response.credential);
         setUserInfo(userObject);
@@ -21,6 +33,7 @@ function Test() {
         google.accounts.id.renderButton(document.getElementById('signInDiv'), { theme: 'outline', size: 'large' });
     }, []);
 
+    console.log(idToken);
     return (
         <div>
             {/* <h1>TEST Page</h1>

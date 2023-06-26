@@ -51,6 +51,7 @@ import Singlefour from './pages/Singlefour';
 import Singlefive from './pages/Singlefive';
 
 import Test from './pages/test';
+import Test2 from './pages/test2';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
@@ -109,6 +110,7 @@ class Root extends Component {
                     <Route exact path={`${process.env.PUBLIC_URL}/notification`} component={Notification} />
 
                     <Route exact path={`${process.env.PUBLIC_URL}/test`} component={Test} />
+                    <Route exact path={`${process.env.PUBLIC_URL}/test2`} component={Test2} />
                 </Switch>
             </BrowserRouter>
         );
