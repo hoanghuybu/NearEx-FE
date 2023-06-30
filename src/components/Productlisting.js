@@ -1,5 +1,5 @@
-import React,{Component} from 'react';
-import { Link  } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const productList = [
     {
@@ -74,22 +74,54 @@ const productList = [
         weight: '500',
         price: '29',
     },
+];
 
-]
+function Productlisting({ divClass }) {
+    const [listCampaign, setListCampaign] = useState([]);
 
-class Productlisting extends Component {
-    render() {
-        const {divClass} = this.props;
-        return (
-            <div className="row border rounded-6 m-0 bg-white">
-            {productList.map((value , index) => (
-                // Start Single Demo 
-                <div key={index}  className={divClass}>
-                    <span className="ls-3 font-xsssss text-white text-uppercase bg-current fw-700 p-2 lh-1 d-inline-block posa rounded-3 left-15 top-15">30% off</span>
-                    <Link to="/single-product-1" className="posa right-0 top-0 mt-3 me-3"><i className="ti-heart font-xs text-grey-500"></i></Link>
+    const getCampaign = async () => {
+        try {
+            const response = await fetch('https://swd-nearex.azurewebsites.net/api/campaigns');
+            const responseData = await response.json();
+
+            setListCampaign(responseData.results);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    useEffect(() => {
+        getCampaign();
+    }, []);
+    return (
+        <div className="row border rounded-6 m-0 bg-white">
+            {listCampaign.map((campaign) => (
+                // Start Single Demo
+                <div key={campaign.id} className={divClass}>
+                    <span className="ls-3 font-xsssss text-white text-uppercase bg-current fw-700 p-2 lh-1 d-inline-block posa rounded-3 left-15 top-15">
+                        {campaign.campaignDetails.length > 0 && (
+                            <div>
+                                {campaign.campaignDetails[campaign.campaignDetails.length - 1].percentDiscount +
+                                    '% off'}
+                            </div>
+                        )}
+                    </span>
+                    <Link to="/single-product-1" className="posa right-0 top-0 mt-3 me-3">
+                        <i className="ti-heart font-xs text-grey-500"></i>
+                    </Link>
                     <div className="clearfix"></div>
-                    
-                    <Link to="/single-product-1" className="d-block text-center" data-bs-toggle="modal" data-bs-target="#productmodal"><img src={`assets/images/${value.imageUrl}`} alt="banner" className="w-100 mt-3 mb-3 d-inline-block p-2 pt-0" /></Link>
+
+                    <Link
+                        to="/single-product-1"
+                        className="d-block text-center"
+                        data-bs-toggle="modal"
+                        data-bs-target="#productmodal"
+                    >
+                        <img
+                            src="assets/images/p.png"
+                            alt="banner"
+                            className="w-100 mt-3 mb-3 d-inline-block p-2 pt-0"
+                        />
+                    </Link>
                     <div className="star d-inline text-left">
                         <img src="assets/images/star.png" alt="star" className="w-10 me-1 float-start" />
                         <img src="assets/images/star.png" alt="star" className="w-10 me-1 float-start" />
@@ -98,8 +130,18 @@ class Productlisting extends Component {
                         <img src="assets/images/star-disable.png" alt="star" className="w-10 me-1 float-start" />
                     </div>
                     <div className="clearfix"></div>
-                    <h2 className="mt-2"><Link to="/single-product-1" className="text-grey-700 fw-600 font-xsss lh-22 d-block ls-0">{value.title}</Link></h2>
-                    <h6 className="font-xss ls-3 fw-700 text-current d-flex"><span className="font-xsssss text-grey-500">$</span>{value.price} <span className="ms-auto text-grey-500 fw-500 mt-1 font-xsssss">{value.weight}</span></h6>
+                    <h2 className="mt-2">
+                        <Link to="/single-product-1" className="text-grey-700 fw-600 font-xsss lh-22 d-block ls-0">
+                            {campaign.product.productName}
+                        </Link>
+                    </h2>
+                    <h6 className="font-xss ls-3 fw-700 text-current d-flex">
+                        <span className="font-xsssss text-grey-500">VND</span>
+                        {campaign.product.price}{' '}
+                        <span className="ms-auto text-grey-500 fw-500 mt-1 font-xsssss">
+                            {campaign.product.netWeight + ' ' + campaign.product.unit}
+                        </span>
+                    </h6>
                     <div className="cart-count d-flex mt-4">
                         <div className="number">
                             <span className="minus">-</span>
@@ -110,10 +152,9 @@ class Productlisting extends Component {
                 </div>
 
                 // End Single Demo
-            ))} 
-            </div>
-        );
-    }
+            ))}
+        </div>
+    );
 }
 
 export default Productlisting;

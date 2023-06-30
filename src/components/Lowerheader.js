@@ -11,7 +11,7 @@ function Lowerheader() {
 
     const getCategory = async () => {
         try {
-            const response = await fetch('https://swd-nearex.azurewebsites.net/api/category');
+            const response = await fetch('https://swd-nearex.azurewebsites.net/api/categories');
             const responseData = await response.json();
             setListCategory(responseData.results);
         } catch (error) {
@@ -265,9 +265,9 @@ function Lowerheader() {
                                                             <Link to="/contact"> Contact Pages</Link>
                                                         </li>
                                                         {/* <li><Link to="/blog"> Blog Pages</Link></li> */}
-                                                        <li>
+                                                        {/* <li>
                                                             <Link to="/blog-single"> Single Blog</Link>
-                                                        </li>
+                                                        </li> */}
                                                         <li>
                                                             <Link to="/faq"> Faq Pages</Link>
                                                         </li>
@@ -289,7 +289,7 @@ function Lowerheader() {
                                                 <li>
                                                     <Link className="dropdown-item" to="/address">
                                                         {' '}
-                                                        Saved Address{' '}
+                                                        Update Information{' '}
                                                     </Link>
                                                 </li>
                                                 <li>
@@ -324,11 +324,11 @@ function Lowerheader() {
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li className="nav-item nav-item-toggle">
+                                        {/* <li className="nav-item nav-item-toggle">
                                             <a className="nav-items" href="/blog">
                                                 Blog
                                             </a>
-                                        </li>
+                                        </li> */}
                                         <li className="nav-item nav-item-toggle">
                                             <a className="nav-items" href="/contact">
                                                 Contact

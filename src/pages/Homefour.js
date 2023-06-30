@@ -12,25 +12,27 @@ import Addbannerone from '../components/Addbannerone';
 import Addbannerfour from '../components/Addbannerfour';
 import Sliderthree from '../components/Sliderthree';
 
-const dealProduct = [
-    { imageUrl: 'p.png', title: 'Blue Diamond Almonds ', price: '39', weight: '400 gm' },
-    { imageUrl: 'p.png', title: 'Assorted Donuts Salted ', price: '29', weight: '2 Kg' },
-    { imageUrl: 'p.png', title: 'Natures Own Wheat ', price: '40', weight: '400 gm' },
-    { imageUrl: 'p.png', title: 'Tailgater Ham  Organic ', price: '40', weight: '1 Kg' },
-    { imageUrl: 'p.png', title: 'Kobita Almonds Salted ', price: '40', weight: '100 gm' },
-    { imageUrl: 'p.png', title: 'Natures Own 100% Wheat ', price: '29', weight: '500 gm' },
-];
+// const dealProduct = [
+//     { imageUrl: 'p.png', title: 'Blue Diamond Almonds ', price: '39', weight: '400 gm' },
+//     { imageUrl: 'p.png', title: 'Assorted Donuts Salted ', price: '29', weight: '2 Kg' },
+//     { imageUrl: 'p.png', title: 'Natures Own Wheat ', price: '40', weight: '400 gm' },
+//     { imageUrl: 'p.png', title: 'Tailgater Ham  Organic ', price: '40', weight: '1 Kg' },
+//     { imageUrl: 'p.png', title: 'Kobita Almonds Salted ', price: '40', weight: '100 gm' },
+//     { imageUrl: 'p.png', title: 'Natures Own 100% Wheat ', price: '29', weight: '500 gm' },
+// ];
 
-const trendProduct = [
-    { imageUrl: 'p.png', title: 'Tailgater Ham  Organic ', price: '40', weight: '1 Kg' },
-    { imageUrl: 'p.png', title: 'Apple Juice Organic Food ', price: '39', weight: '200 gm' },
-    { imageUrl: 'p.png', title: 'Almonds Lightly Salted ', price: '29', weight: '300 gm' },
-    { imageUrl: 'p.png', title: 'Assorted Donuts Salted ', price: '79', weight: '5 Kg' },
-    { imageUrl: 'p.png', title: 'Natures Own 100% Wheat ', price: '29', weight: '500 gm' },
-];
+// const trendProduct = [
+//     { imageUrl: 'p.png', title: 'Tailgater Ham  Organic ', price: '40', weight: '1 Kg' },
+//     { imageUrl: 'p.png', title: 'Apple Juice Organic Food ', price: '39', weight: '200 gm' },
+//     { imageUrl: 'p.png', title: 'Almonds Lightly Salted ', price: '29', weight: '300 gm' },
+//     { imageUrl: 'p.png', title: 'Assorted Donuts Salted ', price: '79', weight: '5 Kg' },
+//     { imageUrl: 'p.png', title: 'Natures Own 100% Wheat ', price: '29', weight: '500 gm' },
+// ];
 
 function Homefour() {
     const [listCategory, setListCategory] = useState([]);
+    const [listProduct, setListProduct] = useState([]);
+    const [listCampaign, setListCampaign] = useState([]);
 
     const dealProductsettings = {
         arrows: true,
@@ -63,16 +65,41 @@ function Homefour() {
 
     const getCategory = async () => {
         try {
-            const response = await fetch('https://swd-nearex.azurewebsites.net/api/category');
+            const response = await fetch('https://swd-nearex.azurewebsites.net/api/categories');
             const responseData = await response.json();
             setListCategory(responseData.results);
         } catch (error) {
             console.log(error);
         }
     };
+
+    const getProduct = async () => {
+        try {
+            const response = await fetch('https://swd-nearex.azurewebsites.net/api/products');
+            const responseData = await response.json();
+            setListProduct(responseData.results);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getCampaign = async () => {
+        try {
+            const response = await fetch('https://swd-nearex.azurewebsites.net/api/campaigns');
+            const responseData = await response.json();
+
+            setListCampaign(responseData.results);
+        } catch (error) {
+            console.log(error);
+        }
+    };
     useEffect(() => {
         getCategory();
+        getProduct();
+        getCampaign();
     }, []);
+
+    // console.log(listCampaign);
     return (
         <Fragment>
             <div className="main-wrapper center-wrap">
@@ -100,7 +127,11 @@ function Homefour() {
                             </div>
                             <div className="col-lg-3 ps-lg-0 d-none d-lg-block d-xs-block sm-mt-3">
                                 <div className="card w-100 border-0 shadow-none mb-0 ovh rounded-6 hover-zoom-image">
-                                    <img src="https://via.placeholder.com/260x397.png" alt="banner" className="w-100" />
+                                    <img
+                                        src="https://firebasestorage.googleapis.com/v0/b/nearex-1b8f7.appspot.com/o/images%2Fside-banner.png?alt=media&token=7795d4e2-023f-4c3d-ad19-60ed57ff1879"
+                                        alt="banner"
+                                        className="w-100"
+                                    />
                                     <div className="p-4 posa top-0 w-100">
                                         <span className="fw-700 ls-3 text-white bg-current ps-2 pe-2 lh-24 rounded-6 d-inline-block font-xsssss">
                                             30% OFF
@@ -179,18 +210,24 @@ function Homefour() {
                             <div className="col-lg-12 mb-3">
                                 <div className="banner-slider-5 rounded-6 bg-white border-danger">
                                     <Slider {...dealProductsettings} className="slick-arrow-top">
-                                        {dealProduct.map((value, index) => (
-                                            <div key={index} className="p-3 posr">
+                                        {listCampaign.map((campaign) => (
+                                            <div key={campaign.id} className="p-3 posr">
                                                 <h4 className="ls-3 font-xsssss text-white text-uppercase bg-current fw-700 p-2 d-inline-block posa rounded-3">
-                                                    30% off
+                                                    {campaign.campaignDetails.length > 0 && (
+                                                        <div>
+                                                            {campaign.campaignDetails[
+                                                                campaign.campaignDetails.length - 1
+                                                            ].percentDiscount + '%'}
+                                                        </div>
+                                                    )}
                                                 </h4>
                                                 <span className="posa right-0 top-0 mt-3 me-3 z-index-5">
                                                     <i className="ti-heart font-xs text-grey-500"></i>
                                                 </span>
                                                 <div className="clearfix"></div>
-                                                <a href="/single-product" className="d-block text-center p-2">
+                                                <a href="/single-product-5" className="d-block text-center p-2">
                                                     <img
-                                                        src={`assets/images/${value.imageUrl}`}
+                                                        src="assets/images/p.png"
                                                         alt="product"
                                                         className="w-100 mt-1 d-inline-block"
                                                     />
@@ -223,19 +260,19 @@ function Homefour() {
                                                     />
                                                 </div>
                                                 <div className="clearfix"></div>
-                                                <h2 className="mt-1">
+                                                <h2 className="mt-2">
                                                     <a
-                                                        href="/single-product"
+                                                        href="/single-product-5"
                                                         className="text-grey-700 fw-600 font-xsss lh-2 ls-0"
                                                     >
-                                                        {value.title}
+                                                        {campaign.product.productName}
                                                     </a>
                                                 </h2>
                                                 <h6 className="font-xss ls-3 fw-700 text-current d-flex">
-                                                    <span className="font-xsssss text-grey-500">$</span>
-                                                    {value.price}{' '}
-                                                    <span className="ms-auto me-4 text-grey-500 fw-500 font-xsssss">
-                                                        {value.weight}
+                                                    <span className="font-xsssss text-grey-500 d-flex">VND</span>
+                                                    {campaign.product.price}{' '}
+                                                    <span className="ms-auto me-4 text-grey-500 fw-500 font-xsssss d-flex">
+                                                        {campaign.product.netWeight + ' ' + campaign.product.unit}
                                                     </span>
                                                 </h6>
                                                 <div className="cart-count d-flex mt-4 mb-2">
@@ -268,14 +305,14 @@ function Homefour() {
                             <div className="col-lg-4 col-md-4 mt-4 mb-lg-5 mb-3 product-wrap-bottom">
                                 <h4 className="fw-700 font-xss mb-3 mt-2">Best Seller</h4>
 
-                                {trendProduct.map((value, index) => (
-                                    <div key={index} className="card border-0 rounded-6">
+                                {listProduct.map((product) => (
+                                    <div key={product.id} className="card border-0 rounded-6">
                                         <div className="card-content p-3 border border-bottom-0 border-light border-size-md">
                                             <div className="row">
                                                 <div className="col-sm-4 col-xs-4">
                                                     <a href="/g-6" className="d-block text-center">
                                                         <img
-                                                            src={`assets/images/${value.imageUrl}`}
+                                                            src="assets/images/p.png"
                                                             alt="product"
                                                             className="w-100 d-inline-block pt-2 rounded-6"
                                                         />
@@ -283,17 +320,17 @@ function Homefour() {
                                                 </div>
                                                 <div className="col-sm-8 col-xs-8 ps-0">
                                                     <span className="ms-auto text-grey-500 fw-500 lh-1 font-xsssss mt-0 w-100 mb-2">
-                                                        {value.weight}
+                                                        {product.netWeight + ' ' + product.unit}
                                                     </span>
                                                     <a
                                                         href="/single-product"
                                                         className="text-grey-900 fw-600 font-xssss lh-20 d-block ls-0 mb-0"
                                                     >
-                                                        {value.title}
+                                                        {product.productName}
                                                     </a>
                                                     <h6 className="font-xsss ls-3 fw-700 text-current float-start mt-1">
-                                                        <span className="font-xsssss text-grey-500">$</span>
-                                                        {value.price}{' '}
+                                                        <span className="font-xsssss text-grey-500">VND</span>
+                                                        {product.price}{' '}
                                                     </h6>
                                                 </div>
                                             </div>
@@ -305,14 +342,14 @@ function Homefour() {
                             <div className="col-lg-4 col-md-4 mt-4 mb-lg-5 mb-3 product-wrap-bottom">
                                 <h4 className="fw-700 font-xss mb-3 mt-2">Trend Seller</h4>
 
-                                {trendProduct.map((value, index) => (
-                                    <div key={index} className="card border-0 rounded-6">
+                                {listProduct.map((product) => (
+                                    <div key={product.id} className="card border-0 rounded-6">
                                         <div className="card-content p-3 border border-bottom-0 border-light border-size-md">
                                             <div className="row">
                                                 <div className="col-sm-4 col-xs-4">
                                                     <a href="/g-6" className="d-block text-center">
                                                         <img
-                                                            src={`assets/images/${value.imageUrl}`}
+                                                            src="assets/images/p.png"
                                                             alt="product"
                                                             className="w-100 d-inline-block pt-2 rounded-6"
                                                         />
@@ -320,17 +357,17 @@ function Homefour() {
                                                 </div>
                                                 <div className="col-sm-8 col-xs-8 ps-0">
                                                     <span className="ms-auto text-grey-500 fw-500 lh-1 font-xsssss mt-0 w-100 mb-2">
-                                                        {value.weight}
+                                                        {product.netWeight + ' ' + product.unit}
                                                     </span>
                                                     <a
                                                         href="/single-product"
                                                         className="text-grey-900 fw-600 font-xssss lh-20 d-block ls-0 mb-0"
                                                     >
-                                                        {value.title}
+                                                        {product.productName}
                                                     </a>
                                                     <h6 className="font-xsss ls-3 fw-700 text-current float-start mt-1">
-                                                        <span className="font-xsssss text-grey-500">$</span>
-                                                        {value.price}{' '}
+                                                        <span className="font-xsssss text-grey-500">VND</span>
+                                                        {product.price}{' '}
                                                     </h6>
                                                 </div>
                                             </div>
@@ -342,14 +379,14 @@ function Homefour() {
                             <div className="col-lg-4 col-md-4 mt-4 mb-lg-5 mb-3 product-wrap-bottom">
                                 <h4 className="fw-700 font-xss mb-3 mt-2">Feature Seller</h4>
 
-                                {trendProduct.map((value, index) => (
-                                    <div key={index} className="card border-0 rounded-6">
+                                {listProduct.map((product) => (
+                                    <div key={product.id} className="card border-0 rounded-6">
                                         <div className="card-content p-3 border border-bottom-0 border-light border-size-md">
                                             <div className="row">
                                                 <div className="col-sm-4 col-xs-4">
                                                     <a href="/g-6" className="d-block text-center">
                                                         <img
-                                                            src={`assets/images/${value.imageUrl}`}
+                                                            src="assets/images/p.png"
                                                             alt="product"
                                                             className="w-100 d-inline-block pt-2 rounded-6"
                                                         />
@@ -357,17 +394,17 @@ function Homefour() {
                                                 </div>
                                                 <div className="col-sm-8 col-xs-8 ps-0">
                                                     <span className="ms-auto text-grey-500 fw-500 lh-1 font-xsssss mt-0 w-100 mb-2">
-                                                        {value.weight}
+                                                        {product.netWeight + ' ' + product.unit}
                                                     </span>
                                                     <a
                                                         href="/single-product"
                                                         className="text-grey-900 fw-600 font-xssss lh-20 d-block ls-0 mb-0"
                                                     >
-                                                        {value.title}
+                                                        {product.productName}
                                                     </a>
                                                     <h6 className="font-xsss ls-3 fw-700 text-current float-start mt-1">
-                                                        <span className="font-xsssss text-grey-500">$</span>
-                                                        {value.price}{' '}
+                                                        <span className="font-xsssss text-grey-500">VND</span>
+                                                        {product.price}{' '}
                                                     </h6>
                                                 </div>
                                             </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 
 const trendProduct = [
@@ -13,13 +13,13 @@ function Header() {
     const [location, setLocation] = useState(false);
     const [cart, setCart] = useState(false);
     const [currentUser, setCurrentUser] = useState(false);
-    const history = useHistory();
+    const [loginUser, setLoginUser] = useState({});
 
     const handleCheckUser = () => {
-        var check = localStorage.getItem('jwtToken');
-        if (check) {
-            const user = JSON.parse(localStorage.getItem('user'));
-            console.log(user);
+        var check = sessionStorage.getItem('jwtToken');
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        if (check && user) {
+            setLoginUser(user);
             setCurrentUser(true);
         }
     };
@@ -30,12 +30,6 @@ function Header() {
 
     const handleCart = () => {
         setCart(!cart);
-    };
-
-    const hanldeLogout = () => {
-        localStorage.removeItem('jwtToken');
-        localStorage.removeItem('user');
-        history.push('/logintwo');
     };
 
     useEffect(() => {
@@ -192,37 +186,21 @@ function Header() {
                             </Modal>
 
                             {currentUser ? (
-                                <div className="navbar navbar-expand-lg p-0">
-                                    <div className="navbar-collapse collapse show " id="main_nav">
-                                        <ul className="navbar-nav ">
-                                            <li className="nav-item site-menu">
-                                                <a to="/" className="nav-link nav-icon p-0">
-                                                    <img
-                                                        src="https://via.placeholder.com/50x50.png"
-                                                        alt="user"
-                                                        className="w-40 mt-1 rounded-circle"
-                                                    />
-                                                </a>
-                                                <ul className="sub-menu border-0 shadow-xss ">
-                                                    <li>
-                                                        <button onClick={hanldeLogout} className="dropdown-item">
-                                                            {' '}
-                                                            Log Out
-                                                        </button>
-                                                        <Link className="dropdown-item" to="/g-4">
-                                                            {' '}
-                                                            Profile
-                                                        </Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <Link to="/dashboard" className=" nav-icon p-0">
+                                    <img
+                                        src={
+                                            loginUser.avatar !== ''
+                                                ? loginUser.avatar
+                                                : 'https://via.placeholder.com/50x50.png'
+                                        }
+                                        alt="user"
+                                        className="w-40 mt-1 rounded-circle"
+                                    />
+                                </Link>
                             ) : (
                                 <Link to="/logintwo" className=" nav-icon p-0">
                                     <img
-                                        src="https://icon-library.com/images/50x50-icon/50x50-icon-0.jpg"
+                                        src="https://firebasestorage.googleapis.com/v0/b/nearex-1b8f7.appspot.com/o/images%2Faccount.png?alt=media&token=65bbe49f-91fd-414b-81ab-99bbf4f1674e"
                                         alt="user"
                                         className="w-40 mt-1 rounded-circle"
                                     />

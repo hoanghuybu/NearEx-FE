@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 const requestBody = {
     accountSID: 'string',
@@ -26,12 +26,12 @@ function Logintwo() {
 
     function handleCallBackRespone(response) {
         var userObject = jwt_decode(response.credential);
-        localStorage.setItem('jwtToken', response.credential);
+        // sessionStorage.setItem('jwtToken', response.credential);
         setUserInfo(userObject);
 
         setTimeout(() => {
-            localStorage.removeItem('jwtToken');
-            localStorage.removeItem('user');
+            sessionStorage.removeItem('jwtToken');
+            sessionStorage.removeItem('user');
             setUserInfo({});
         }, 60 * 60 * 1000);
     }
@@ -40,7 +40,7 @@ function Logintwo() {
         var googleId = userInfo.sub;
         try {
             const response = await fetch(
-                `https://swd-nearex.azurewebsites.net/api/user/verification?googleId=${googleId}`,
+                `https://swd-nearex.azurewebsites.net/api/users/verification?googleId=${googleId}`,
                 {
                     method: 'POST',
                     headers: {
@@ -51,10 +51,9 @@ function Logintwo() {
             );
             const isUserVerified = await response.json();
             if (isUserVerified) {
-                findUserByGoogleId(googleId);
+                await findUserByGoogleId(googleId);
                 history.push('/');
             } else {
-                console.log('Create user');
                 const googleUser = {
                     email: userInfo.email || '',
                     password: '',
@@ -67,7 +66,8 @@ function Logintwo() {
                     googleId: userInfo.sub || '',
                     coordinateString: '',
                 };
-                createUser(googleUser);
+                await createUser(googleUser);
+                history.push('/');
             }
         } catch (error) {
             console.log(error);
@@ -76,7 +76,7 @@ function Logintwo() {
 
     const createUser = async (googleUser) => {
         try {
-            const response = await fetch('https://swd-nearex.azurewebsites.net/api/user/create', {
+            const response = await fetch('https://swd-nearex.azurewebsites.net/api/users/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -86,8 +86,7 @@ function Logintwo() {
             const newUser = await response.json();
             if (Object.keys(newUser).length > 0) {
                 const user = JSON.stringify(newUser);
-                localStorage.setItem('user', user);
-                history.push('/');
+                sessionStorage.setItem('user', user);
             }
         } catch (error) {
             console.log(error);
@@ -96,11 +95,20 @@ function Logintwo() {
 
     const findUserByGoogleId = async (googleId) => {
         try {
-            const response = await fetch(`https://swd-nearex.azurewebsites.net/api/user?GoogleId=${googleId}`);
+            const response = await fetch(
+                `https://swd-nearex.azurewebsites.net/api/users/login-google?googleId=${googleId}`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                },
+            );
             const responseData = await response.json();
-            const user = JSON.stringify(responseData.results[0]);
+            const user = JSON.stringify(responseData);
             if (Object.keys(user).length > 0) {
-                localStorage.setItem('user', user);
+                sessionStorage.setItem('user', user);
+                sessionStorage.setItem('jwtToken', responseData.token);
             }
         } catch (error) {
             console.log(error);
@@ -114,7 +122,7 @@ function Logintwo() {
             password: password,
         };
         try {
-            const response = await fetch('https://swd-nearex.azurewebsites.net/api/user/login', {
+            const response = await fetch('https://swd-nearex.azurewebsites.net/api/users/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -124,13 +132,13 @@ function Logintwo() {
             const newUser = await response.json();
             if (Object.keys(newUser).length > 0) {
                 const user = JSON.stringify(newUser);
-                localStorage.setItem('user', user);
-                localStorage.setItem('jwtToken', newUser.token);
+                sessionStorage.setItem('user', user);
+                sessionStorage.setItem('jwtToken', newUser.token);
                 history.push('/');
             }
             setTimeout(() => {
-                localStorage.removeItem('jwtToken');
-                localStorage.removeItem('user');
+                sessionStorage.removeItem('jwtToken');
+                sessionStorage.removeItem('user');
                 setUserInfo({});
             }, 60 * 60 * 1000);
         } catch (error) {
@@ -222,7 +230,7 @@ function Logintwo() {
                                 <div className="col-sm-12 p-0 text-start">
                                     <div className="form-group mb-1">
                                         <a
-                                            href=""
+                                            href="#"
                                             onClick={handleLogin}
                                             className="bg-current text-center style2-input text-white fw-600 border-0 p-0 "
                                         >
@@ -231,7 +239,7 @@ function Logintwo() {
                                     </div>
                                     <h6 className="text-grey-500 font-xssss fw-500 mt-0 mb-0 lh-32">
                                         Dont have account{' '}
-                                        <a href="/registertwo" className="fw-700 ms-1">
+                                        <a href="/registerone" className="fw-700 ms-1">
                                             Register
                                         </a>
                                     </h6>
@@ -241,8 +249,8 @@ function Logintwo() {
                                         Or, Sign in with your social account{' '}
                                     </h6>
                                     <div className="form-group mb-1">
-                                        <a
-                                            href="#"
+                                        <Link
+                                            to="#"
                                             onClick={handleSignInWithGoogle}
                                             className="text-start font-xsss style2-input text-grey-900 fw-600 bg-greylight border-0 p-0 mb-2"
                                         >
@@ -252,7 +260,7 @@ function Logintwo() {
                                                 className="ms-2 w-40 mb-1 me-5"
                                             />{' '}
                                             Sign in with Google
-                                        </a>
+                                        </Link>
                                     </div>
                                     {/* <div className="form-group mb-1"><a href="/" className="text-start font-xsss style2-input text-white fw-600 bg-twiiter border-0 p-0 "><img src="assets/images/icon-3.png" alt="icon" className="ms-2 w-40 mb-1 me-5" /> Sign in with Facebook</a></div> */}
                                 </div>

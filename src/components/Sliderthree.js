@@ -1,26 +1,28 @@
-import React,{Component} from 'react';
-import Slider from "react-slick";
+import React, { Component } from 'react';
+import Slider from 'react-slick';
 
 const categoryList = [
-    {   
-        imageUrl: 'slide.png',
+    {
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/nearex-1b8f7.appspot.com/o/images%2Flarge-banner-1.png?alt=media&token=f7844c0d-ebb6-492e-ae6f-18b53ac6e3b1',
         tag: 'All natural products',
         titleone: 'Healty Food Pure',
         titletwo: ' Organic Market',
         text: 'Organic food is food produced by methods that comply with the standard of farming.',
         link: '/g-4',
-        alignmanet:'slide-content text-left w-75',
+        alignmanet: 'slide-content text-left w-75',
     },
-    {   
-        imageUrl: 'slide.png',
+    {
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/nearex-1b8f7.appspot.com/o/images%2Flarge-banner-2.png?alt=media&token=3e37cf7e-dd70-46d7-b440-f92a791eb3cc',
         tag: 'All natural products',
         titleone: 'Summer Discount',
         titletwo: ' Organic Market',
         text: 'Organic food is food produced by methods that comply with the standard of farming.',
         link: '/g-4',
-        alignmanet:'slide-content text-left w-75',
+        alignmanet: 'slide-content text-left w-75',
     },
-]
+];
 
 class Sliderthree extends Component {
     render() {
@@ -30,26 +32,31 @@ class Sliderthree extends Component {
             infinite: false,
             speed: 300,
             slidesToShow: 1,
-            centerMode: false
+            centerMode: false,
         };
         return (
             <div className="slider-banner banner-wrap">
                 <Slider {...storysettings}>
-                    {categoryList.map((value , index) => (
+                    {categoryList.map((value, index) => (
                         <div key={index}>
-                            <div className="item rounded-6 bg-image-cover ovh style3 d-flex justify-content-start" style={{backgroundImage: `url("assets/images/${value.imageUrl}")`}}>
-                                
-                                    <div className={value.alignmanet}>
-                                        <span className="text-grey-700">{value.tag}</span>
-                                        <h2 className="text-grey-900"><b>{value.titleone}</b>{value.titletwo}</h2>    
-                                        <p className="text-grey-600">{value.text}</p>
-                                        <div className="clearfix"></div>
-                                        <a href={value.link} className="btn-lg rounded-25 btn bg-current">SHOP NOW</a>
-                                    </div>                                     
-                                
-                                
+                            <div
+                                className="item rounded-6 bg-image-cover ovh style3 d-flex justify-content-start"
+                                style={{ backgroundImage: `url("${value.imageUrl}")` }}
+                            >
+                                <div className={value.alignmanet}>
+                                    <span className="text-grey-700">{value.tag}</span>
+                                    <h2 className="text-grey-900">
+                                        <b>{value.titleone}</b>
+                                        {value.titletwo}
+                                    </h2>
+                                    <p className="text-grey-600">{value.text}</p>
+                                    <div className="clearfix"></div>
+                                    <a href={value.link} className="btn-lg rounded-25 btn bg-current">
+                                        SHOP NOW
+                                    </a>
+                                </div>
                             </div>
-                        </div>  
+                        </div>
                     ))}
                 </Slider>
             </div>
