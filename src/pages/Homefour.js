@@ -225,7 +225,10 @@ function Homefour() {
                                                     <i className="ti-heart font-xs text-grey-500"></i>
                                                 </span>
                                                 <div className="clearfix"></div>
-                                                <a href="/single-product-5" className="d-block text-center p-2">
+                                                <a
+                                                    href={'/single-product-5?campaignId=' + campaign.id}
+                                                    className="d-block text-center p-2"
+                                                >
                                                     <img
                                                         src="assets/images/p.png"
                                                         alt="product"
@@ -262,7 +265,7 @@ function Homefour() {
                                                 <div className="clearfix"></div>
                                                 <h2 className="mt-2">
                                                     <a
-                                                        href="/single-product-5"
+                                                        href={'/single-product-5?campaignId=' + campaign.id}
                                                         className="text-grey-700 fw-600 font-xsss lh-2 ls-0"
                                                     >
                                                         {campaign.product.productName}

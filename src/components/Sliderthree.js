@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 const categoryList = [
     {
         imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/nearex-1b8f7.appspot.com/o/images%2Flarge-banner-1.png?alt=media&token=f7844c0d-ebb6-492e-ae6f-18b53ac6e3b1',
+            'https://firebasestorage.googleapis.com/v0/b/nearex-1b8f7.appspot.com/o/images%2Flarge-banner-1.png?alt=media&token=57655eab-993c-40eb-95ff-72368cffcd86',
         tag: 'All natural products',
         titleone: 'Healty Food Pure',
         titletwo: ' Organic Market',
@@ -14,7 +14,7 @@ const categoryList = [
     },
     {
         imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/nearex-1b8f7.appspot.com/o/images%2Flarge-banner-2.png?alt=media&token=3e37cf7e-dd70-46d7-b440-f92a791eb3cc',
+            'https://firebasestorage.googleapis.com/v0/b/nearex-1b8f7.appspot.com/o/images%2Flarge-banner-2.png?alt=media&token=17adbc38-0406-4e5e-9134-44d4af071db3',
         tag: 'All natural products',
         titleone: 'Summer Discount',
         titletwo: ' Organic Market',
