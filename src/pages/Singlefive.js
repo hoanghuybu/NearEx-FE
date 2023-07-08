@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import Slider from 'react-slick';
 
@@ -7,6 +7,7 @@ import Headermob from '../components/Headermob';
 import Upperheader from '../components/Upperheader';
 import Lowerheader from '../components/Lowerheader';
 import Footer from '../components/Footer';
+import { CartContext } from '../context/CartContext';
 
 const relatedProduct = [
     { imageUrl: 'p.png', title: 'Apple Juice Organic Food ', price: '39', weight: '200 gm' },
@@ -24,11 +25,24 @@ const singleProduct = [
 ];
 
 function Singlefive() {
+    const [campaign, setCampaign] = useState({});
     const location = useLocation();
+    const { cartItems, setCartItems } = useContext(CartContext);
     const searchParams = new URLSearchParams(location.search);
     const campaignId = searchParams.get('campaignId');
-    const categoryId = searchParams.get('categoryId');
-    const [campaign, setCampaign] = useState({});
+    const [quantity, setQuantity] = useState(1);
+
+    const handleDecrease = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
+    };
+
+    const handleIncrease = () => {
+        if (quantity < 10) {
+            setQuantity(quantity + 1);
+        }
+    };
 
     const getCampaign = async (campaignId) => {
         try {
@@ -41,17 +55,12 @@ function Singlefive() {
         }
     };
 
-    const getCategory = async (categoryId) => {
-        try {
-            const response = await fetch(
-                `https://swd-nearex.azurewebsites.net/api/campaigns/cate?cateId=${categoryId}`,
-            );
-            const responseData = await response.json();
-            setCampaign(responseData);
-            // console.log(responseData);
-        } catch (error) {
-            console.log(error);
-        }
+    const addToCart = () => {
+        const productWithQuantity = {
+            ...campaign,
+            orderQuantity: quantity,
+        };
+        setCartItems([...cartItems, productWithQuantity]);
     };
 
     const Productsettings = {
@@ -92,12 +101,7 @@ function Singlefive() {
     };
 
     useEffect(() => {
-        if (campaignId) {
-            getCampaign(campaignId);
-        }
-        if (categoryId) {
-            getCategory(categoryId);
-        }
+        getCampaign(campaignId);
     }, []);
 
     return (
@@ -116,7 +120,7 @@ function Singlefive() {
                                     {singleProduct.map((value, index) => (
                                         <div key={index} className="text-center">
                                             <img
-                                                src={`assets/images/${value.imageUrl}`}
+                                                src={campaign?.product?.productImg}
                                                 alt={value.title}
                                                 className="w-150 d-inline-block"
                                             />
@@ -227,14 +231,18 @@ function Singlefive() {
                                 <div className="cart-card d-flex border-0">
                                     <div className="cart-count float-end me-2">
                                         <div className="number">
-                                            <span className="minus">-</span>
-                                            <input type="text" className="open-font cart-input mx-1" defaultValue="1" />
-                                            <span className="plus">+</span>
+                                            <span className="minus" onClick={handleDecrease}>
+                                                -
+                                            </span>
+                                            <input type="text" className="open-font cart-input mx-1" value={quantity} />
+                                            <span className="plus" onClick={handleIncrease}>
+                                                +
+                                            </span>
                                         </div>
                                     </div>
-                                    <a href="/" className="bg-current text-white rounded-6 btn-cart">
+                                    <button onClick={addToCart} className="bg-current text-white rounded-6 btn-cart">
                                         ADD to Cart
-                                    </a>
+                                    </button>
                                 </div>
                                 <div className="share-card d-flex mt-lg-5 mt-3">
                                     <h5 className="fw-600 text-grey-700 me-3 mt-2 lh-26 font-xssss">Share :</h5>

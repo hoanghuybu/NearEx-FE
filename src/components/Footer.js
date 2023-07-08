@@ -175,12 +175,12 @@ class Footer extends Component {
                                 </Link>
                             </div>
                             <div className="col-md-8 text-center text-sm-end xs-mb-3">
-                                <Link to="/" className="d-none d-md-inline-block d-lg-inline-block me-2">
+                                {/* <Link to="/" className="d-none d-md-inline-block d-lg-inline-block me-2">
                                     <img src="assets/images/google-play.png" alt="play" />
                                 </Link>
                                 <Link to="/" className="d-none d-md-inline-block d-lg-inline-block me-2">
                                     <img src="assets/images/app-store.png" alt="play" />
-                                </Link>
+                                </Link> */}
                                 <Link to="/" className="btn-round btn-round-md z-index-1 me-1 bg-facebook">
                                     <i className="ti-facebook text-white"></i>
                                 </Link>
@@ -194,14 +194,14 @@ class Footer extends Component {
                                     <i className="ti-instagram text-white"></i>
                                 </Link>
                             </div>
-                            <div className="col-md-8 text-center d-none d-xs-block ">
+                            {/* <div className="col-md-8 text-center d-none d-xs-block ">
                                 <Link to="/" className="me-2">
                                     <img src="https://via.placeholder.com/116x38.png" alt="play" />
                                 </Link>
                                 <Link to="/" className="me-2">
                                     <img src="https://via.placeholder.com/116x38.png" alt="play" />
                                 </Link>
-                            </div>
+                            </div> */}
                             <div className="col-lg-12">
                                 <div className="border-bottom-light mt-5"></div>
                             </div>
@@ -217,9 +217,9 @@ class Footer extends Component {
                                     @ Copyright 2021 All rights reserved.
                                 </p>
                             </div>
-                            <div className="col-md-6 text-center text-sm-end">
+                            {/* <div className="col-md-6 text-center text-sm-end">
                                 <img src="https://via.placeholder.com/320x28.png" alt="payment" />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

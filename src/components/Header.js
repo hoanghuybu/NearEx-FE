@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
+import { CartContext } from '../context/CartContext';
 
-const trendProduct = [
-    { imageUrl: 'p.png', title: 'Almonds Lightly Salted ', price: '29', weight: '300 gm' },
-    { imageUrl: 'p.png', title: 'Assorted Donuts Salted ', price: '79', weight: '5 Kg' },
-    { imageUrl: 'p.png', title: 'Natures Own 100% Wheat ', price: '29', weight: '500 gm' },
-    { imageUrl: 'p.png', title: 'Blue Diamond Almonds ', price: '40', weight: '400 gm' },
-];
+// const trendProduct = [
+//     { imageUrl: 'p.png', title: 'Almonds Lightly Salted ', price: '29', weight: '300 gm' },
+//     { imageUrl: 'p.png', title: 'Assorted Donuts Salted ', price: '79', weight: '5 Kg' },
+//     { imageUrl: 'p.png', title: 'Natures Own 100% Wheat ', price: '29', weight: '500 gm' },
+//     { imageUrl: 'p.png', title: 'Blue Diamond Almonds ', price: '40', weight: '400 gm' },
+// ];
 
 function Header() {
     const [location, setLocation] = useState(false);
     const [cart, setCart] = useState(false);
     const [currentUser, setCurrentUser] = useState(false);
     const [loginUser, setLoginUser] = useState({});
+    const { cartItems } = useContext(CartContext);
 
     const handleCheckUser = () => {
         var check = sessionStorage.getItem('jwtToken');
@@ -115,12 +117,12 @@ function Header() {
                                             {' '}
                                             Cart
                                         </h4>
-                                        {trendProduct.map((value, index) => (
-                                            <div key={index} className="row mb-3">
+                                        {cartItems?.map((cartItem) => (
+                                            <div key={cartItem.id} className="row mb-3">
                                                 <div className="col-md-5 col-xs-5">
                                                     <a href="/" className="d-block text-center">
                                                         <img
-                                                            src={`assets/images/${value.imageUrl}`}
+                                                            src={cartItem?.product?.productImg}
                                                             alt="product"
                                                             className="w-100 d-inline-block pt-3 pb-3 bg-greylight rounded-6"
                                                         />
@@ -128,17 +130,25 @@ function Header() {
                                                 </div>
                                                 <div className="col-md-7 col-xs-7 ps-0">
                                                     <span className="ms-auto text-grey-500 fw-500 lh-1 font-xsssss mt-0 w-100 mb-2">
-                                                        {value.weight}
+                                                        {cartItem?.product?.netWeight + ' ' + cartItem?.product?.unit}
                                                     </span>
                                                     <a
                                                         href="/"
                                                         className="text-grey-900 fw-600 font-xsss lh-22 d-block ls-0 mb-2 pe-lg-4"
                                                     >
-                                                        {value.title}
+                                                        {cartItem?.product?.productName}
                                                     </a>
                                                     <h6 className="font-xs ls-3 fw-700 text-current float-start mt-1">
-                                                        <span className="font-xsssss text-grey-500">$</span>
-                                                        {value.price}{' '}
+                                                        <span className="font-xsssss text-grey-500">VND</span>
+                                                        {cartItem?.campaignDetails?.length > 0 && (
+                                                            <div>
+                                                                {
+                                                                    cartItem.campaignDetails[
+                                                                        cartItem.campaignDetails.length - 1
+                                                                    ].discount
+                                                                }
+                                                            </div>
+                                                        )}{' '}
                                                     </h6>
                                                     <div className="cart-count float-end ">
                                                         <div className="number">
