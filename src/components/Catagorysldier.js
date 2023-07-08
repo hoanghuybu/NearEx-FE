@@ -66,7 +66,10 @@ function Catagorysldier() {
             {listCategory.map((category) => (
                 <div key={category.id} className="me-2">
                     <div className="category-card w-110 style-three shadow-none text-center bg-transparent border-0">
-                        <a href="/g-6" className="rounded-circle hover-zoom pt-1 image-round after-none">
+                        <a
+                            href={'/shop-4?categoryId=' + category.id}
+                            className="rounded-circle hover-zoom pt-1 image-round after-none"
+                        >
                             <img src={category.cateImg} className="w-110 rounded-circle" alt="category" />
                         </a>
                         <h4 className="font-xssss text-grey-600 mt-2 fw-700 d-block lh-18">{category.categoryName}</h4>

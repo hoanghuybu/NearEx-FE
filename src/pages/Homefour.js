@@ -230,7 +230,7 @@ function Homefour() {
                                                     className="d-block text-center p-2"
                                                 >
                                                     <img
-                                                        src="assets/images/p.png"
+                                                        src={campaign.product.productImg}
                                                         alt="product"
                                                         className="w-100 mt-1 d-inline-block"
                                                     />
@@ -315,7 +315,7 @@ function Homefour() {
                                                 <div className="col-sm-4 col-xs-4">
                                                     <a href="/g-6" className="d-block text-center">
                                                         <img
-                                                            src="assets/images/p.png"
+                                                            src={product.productImg}
                                                             alt="product"
                                                             className="w-100 d-inline-block pt-2 rounded-6"
                                                         />
@@ -352,7 +352,7 @@ function Homefour() {
                                                 <div className="col-sm-4 col-xs-4">
                                                     <a href="/g-6" className="d-block text-center">
                                                         <img
-                                                            src="assets/images/p.png"
+                                                            src={product.productImg}
                                                             alt="product"
                                                             className="w-100 d-inline-block pt-2 rounded-6"
                                                         />
@@ -389,7 +389,7 @@ function Homefour() {
                                                 <div className="col-sm-4 col-xs-4">
                                                     <a href="/g-6" className="d-block text-center">
                                                         <img
-                                                            src="assets/images/p.png"
+                                                            src={product.productImg}
                                                             alt="product"
                                                             className="w-100 d-inline-block pt-2 rounded-6"
                                                         />

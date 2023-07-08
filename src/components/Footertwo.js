@@ -155,12 +155,18 @@ class Footertwo extends Component {
                                 </Link>
                             </div>
                             <div className="col-md-8 text-center text-sm-end xs-mb-3">
-                                <Link to="/" className="d-none d-md-inline-block d-lg-inline-block me-2">
-                                    <img src="assets/images/google-play.png" alt="play" />
+                                {/* <Link to="/" className="d-none d-md-inline-block d-lg-inline-block me-2">
+                                    <img
+                                        src="https://firebasestorage.googleapis.com/v0/b/nearex-1b8f7.appspot.com/o/images%2FCHPlay_logo.jpg?alt=media&token=a6e4c77e-5a28-440a-ba60-d265ddf73883"
+                                        alt="play"
+                                    />
                                 </Link>
                                 <Link to="/" className="d-none d-md-inline-block d-lg-inline-block me-2">
-                                    <img src="assets/images/app-store.png" alt="play" />
-                                </Link>
+                                    <img
+                                        src="https://firebasestorage.googleapis.com/v0/b/nearex-1b8f7.appspot.com/o/images%2Ficon_appstore.png?alt=media&token=c1cdf15a-c4df-4e40-8d34-40ed91941bf5"
+                                        alt="play"
+                                    />
+                                </Link> */}
                                 <Link to="/" className="btn-round btn-round-md z-index-1 me-1 bg-facebook">
                                     <i className="ti-facebook text-white"></i>
                                 </Link>
@@ -197,9 +203,9 @@ class Footertwo extends Component {
                                     @ Copyright 2021 All rights reserved.
                                 </p>
                             </div>
-                            <div className="col-md-6 text-center text-sm-end">
+                            {/* <div className="col-md-6 text-center text-sm-end">
                                 <img src="https://via.placeholder.com/116x28.png" alt="payment" />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

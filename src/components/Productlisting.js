@@ -1,83 +1,99 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-const productList = [
-    {
-        imageUrl: 'p.png',
-        title: 'Blue Diamond Almonds Lightly Salted',
-        weight: '100',
-        price: '19',
-    },
-    {
-        imageUrl: 'p.png',
-        title: 'Assorted Donuts Each Salted',
-        weight: '500',
-        price: '54',
-    },
-    {
-        imageUrl: 'p.png',
-        title: 'Natures Own 100% Wheat',
-        weight: '400',
-        price: '43',
-    },
-    {
-        imageUrl: 'p.png',
-        title: 'Tailgater Ham Sandwich Organic',
-        weight: '500',
-        price: '29',
-    },
-    {
-        imageUrl: 'p.png',
-        title: 'Kobita Almonds Lightly Salted',
-        weight: '500',
-        price: '29',
-    },
-    {
-        imageUrl: 'p.png',
-        title: 'Apple Juice Organic <br> Food',
-        weight: '500',
-        price: '29',
-    },
-    {
-        imageUrl: 'p.png',
-        title: 'Blue Diamond Almonds Lightly Salted',
-        weight: '500',
-        price: '29',
-    },
-    {
-        imageUrl: 'p.png',
-        title: 'Assorted Donuts Each Salted',
-        weight: '500',
-        price: '29',
-    },
-    {
-        imageUrl: 'p.png',
-        title: 'Natures Own 100% Wheat',
-        weight: '500',
-        price: '29',
-    },
-    {
-        imageUrl: 'p.png',
-        title: 'Blue Diamond Almonds Lightly Salted',
-        weight: '500',
-        price: '29',
-    },
-    {
-        imageUrl: 'p.png',
-        title: 'Assorted Donuts Each Salted',
-        weight: '500',
-        price: '29',
-    },
-    {
-        imageUrl: 'p.png',
-        title: 'Natures Own 100% Wheat',
-        weight: '500',
-        price: '29',
-    },
-];
+// const productList = [
+//     {
+//         imageUrl: 'p.png',
+//         title: 'Blue Diamond Almonds Lightly Salted',
+//         weight: '100',
+//         price: '19',
+//     },
+//     {
+//         imageUrl: 'p.png',
+//         title: 'Assorted Donuts Each Salted',
+//         weight: '500',
+//         price: '54',
+//     },
+//     {
+//         imageUrl: 'p.png',
+//         title: 'Natures Own 100% Wheat',
+//         weight: '400',
+//         price: '43',
+//     },
+//     {
+//         imageUrl: 'p.png',
+//         title: 'Tailgater Ham Sandwich Organic',
+//         weight: '500',
+//         price: '29',
+//     },
+//     {
+//         imageUrl: 'p.png',
+//         title: 'Kobita Almonds Lightly Salted',
+//         weight: '500',
+//         price: '29',
+//     },
+//     {
+//         imageUrl: 'p.png',
+//         title: 'Apple Juice Organic <br> Food',
+//         weight: '500',
+//         price: '29',
+//     },
+//     {
+//         imageUrl: 'p.png',
+//         title: 'Blue Diamond Almonds Lightly Salted',
+//         weight: '500',
+//         price: '29',
+//     },
+//     {
+//         imageUrl: 'p.png',
+//         title: 'Assorted Donuts Each Salted',
+//         weight: '500',
+//         price: '29',
+//     },
+//     {
+//         imageUrl: 'p.png',
+//         title: 'Natures Own 100% Wheat',
+//         weight: '500',
+//         price: '29',
+//     },
+//     {
+//         imageUrl: 'p.png',
+//         title: 'Blue Diamond Almonds Lightly Salted',
+//         weight: '500',
+//         price: '29',
+//     },
+//     {
+//         imageUrl: 'p.png',
+//         title: 'Assorted Donuts Each Salted',
+//         weight: '500',
+//         price: '29',
+//     },
+//     {
+//         imageUrl: 'p.png',
+//         title: 'Natures Own 100% Wheat',
+//         weight: '500',
+//         price: '29',
+//     },
+// ];
 
 function Productlisting({ divClass }) {
     const [listCampaign, setListCampaign] = useState([]);
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const categoryId = searchParams.get('categoryId');
+
+    const getCategory = async (categoryId) => {
+        try {
+            const response = await fetch(
+                `https://swd-nearex.azurewebsites.net/api/campaigns/cate?cateId=${categoryId}`,
+            );
+            const responseData = await response.json();
+            setListCampaign(responseData.results);
+            // console.log(responseData);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const getCampaign = async () => {
         try {
@@ -90,7 +106,11 @@ function Productlisting({ divClass }) {
         }
     };
     useEffect(() => {
-        getCampaign();
+        if (categoryId) {
+            getCategory(categoryId);
+        } else {
+            getCampaign();
+        }
     }, []);
     return (
         <div className="row border rounded-6 m-0 bg-white">
@@ -117,7 +137,7 @@ function Productlisting({ divClass }) {
                         data-bs-target="#productmodal"
                     >
                         <img
-                            src="assets/images/p.png"
+                            src={campaign.product.productImg}
                             alt="banner"
                             className="w-100 mt-3 mb-3 d-inline-block p-2 pt-0"
                         />

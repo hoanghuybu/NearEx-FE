@@ -27,11 +27,25 @@ function Singlefive() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const campaignId = searchParams.get('campaignId');
+    const categoryId = searchParams.get('categoryId');
     const [campaign, setCampaign] = useState({});
 
-    const getCampaign = async () => {
+    const getCampaign = async (campaignId) => {
         try {
             const response = await fetch(`https://swd-nearex.azurewebsites.net/api/campaigns/${campaignId}`);
+            const responseData = await response.json();
+            setCampaign(responseData);
+            // console.log(responseData);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getCategory = async (categoryId) => {
+        try {
+            const response = await fetch(
+                `https://swd-nearex.azurewebsites.net/api/campaigns/cate?cateId=${categoryId}`,
+            );
             const responseData = await response.json();
             setCampaign(responseData);
             // console.log(responseData);
@@ -78,10 +92,13 @@ function Singlefive() {
     };
 
     useEffect(() => {
-        getCampaign();
+        if (campaignId) {
+            getCampaign(campaignId);
+        }
+        if (categoryId) {
+            getCategory(categoryId);
+        }
     }, []);
-
-    console.log(campaign);
 
     return (
         <Fragment>
