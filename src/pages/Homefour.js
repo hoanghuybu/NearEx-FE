@@ -273,7 +273,15 @@ function Homefour() {
                                                 </h2>
                                                 <h6 className="font-xss ls-3 fw-700 text-current d-flex">
                                                     <span className="font-xsssss text-grey-500 d-flex">VND</span>
-                                                    {campaign.product.price}{' '}
+                                                    {campaign?.campaignDetails?.length > 0 && (
+                                                        <div>
+                                                            {
+                                                                campaign.campaignDetails[
+                                                                    campaign.campaignDetails.length - 1
+                                                                ].discount
+                                                            }
+                                                        </div>
+                                                    )}{' '}
                                                     <span className="ms-auto me-4 text-grey-500 fw-500 font-xsssss d-flex">
                                                         {campaign.product.netWeight + ' ' + campaign.product.unit}
                                                     </span>

@@ -23,24 +23,17 @@
     
 */
 
-@import "~slick-carousel/slick/slick.css"; 
-@import "~slick-carousel/slick/slick-theme.css";
+@import '~slick-carousel/slick/slick.css';
+@import '~slick-carousel/slick/slick-theme.css';
 
-@import "./abstract/variable";
-@import "./abstract/utilities";
-@import "./abstract/abstract";
-@import "./../vendor/icon/feather.css";
-@import "./../vendor/icon/themify-icons.css";
-@import "~bootstrap/scss/bootstrap";
+@import './abstract/variable';
+@import './abstract/utilities';
+@import './abstract/abstract';
+@import './../vendor/icon/feather.css';
+@import './../vendor/icon/themify-icons.css';
+@import '~bootstrap/scss/bootstrap';
 
-
-
-@import "./base/base";
-@import "./components/components";
-@import "./pages/pages";
-
-
-
-
-
-
+@import './base/base';
+@import './components/components';
+@import './pages/pages';
+@import './customer/customer';

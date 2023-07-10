@@ -2,6 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import { CartContext } from '../context/CartContext';
+import HandlessTippy from '@tippyjs/react/headless';
+import SearchResult from './SearchResults';
+import useDebounce from '../hooks/useDebounce';
 
 // const trendProduct = [
 //     { imageUrl: 'p.png', title: 'Almonds Lightly Salted ', price: '29', weight: '300 gm' },
@@ -15,7 +18,12 @@ function Header() {
     const [cart, setCart] = useState(false);
     const [currentUser, setCurrentUser] = useState(false);
     const [loginUser, setLoginUser] = useState({});
+    const [searchResult, setSearchResult] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
+    const [showResult, setShowResult] = useState(true);
     const { cartItems } = useContext(CartContext);
+
+    const debounce = useDebounce(searchValue, 500);
 
     const handleCheckUser = () => {
         var check = sessionStorage.getItem('jwtToken');
@@ -34,9 +42,47 @@ function Header() {
         setCart(!cart);
     };
 
+    const handleChange = (e) => {
+        const searchValue = e.target.value;
+        if (!searchValue.startsWith(' ')) {
+            setSearchValue(e.target.value);
+        }
+    };
+
+    const handleHideResult = () => {
+        setShowResult(false);
+    };
+
+    useEffect(() => {
+        if (!debounce.trim()) {
+            setSearchResult([]);
+            return;
+        }
+
+        const searchCampaigns = async (debounce) => {
+            try {
+                const response = await fetch(
+                    `https://swd-nearex.azurewebsites.net/api/campaigns?ProductName=${debounce}`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    },
+                );
+                const responseData = await response.json();
+                setSearchResult(responseData.results);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        searchCampaigns(debounce);
+    }, [debounce]);
+
     useEffect(() => {
         handleCheckUser();
     }, []);
+
     return (
         <div className={`header-wrapper pt-4 pb-4 z-index-5  d-none d-lg-block bg-white `}>
             <div className="container ">
@@ -81,14 +127,32 @@ function Header() {
                                     </Button>
                                 </Modal.Body>
                             </Modal>
-                            <div className="form-group mb-0 icon-input d-none d-xl-block me-2">
-                                <i className="feather-search font-sm text-grey-400"></i>
-                                <input
-                                    type="text"
-                                    placeholder="Start typing to search.."
-                                    className="lh-38 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl posr"
-                                />
-                            </div>
+                            <HandlessTippy
+                                interactive
+                                visible={showResult && searchResult.length > 0}
+                                render={(attrs) => (
+                                    <div className="search-result" tabIndex="-1" {...attrs}>
+                                        <div className="popper-wrapper">
+                                            <h4 className="search-title">Campaign</h4>
+                                            {searchResult.map((result) => (
+                                                <SearchResult key={result.id} data={result} />
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                                onClickOutside={handleHideResult}
+                            >
+                                <div className="form-group mb-0 icon-input d-none d-xl-block me-2">
+                                    <i className="feather-search font-sm text-grey-400"></i>
+                                    <input
+                                        value={searchValue}
+                                        placeholder="Start typing to search.."
+                                        className="lh-38 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl posr"
+                                        onChange={handleChange}
+                                        onFocus={() => setShowResult(true)}
+                                    />
+                                </div>
+                            </HandlessTippy>
                             <a href="/Notification" className="nav-icon">
                                 <span className="dot-count bg-warning"></span>
                                 <i className="feather-bell text-grey-500"></i>

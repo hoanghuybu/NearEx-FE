@@ -8,12 +8,12 @@ import Footer from '../components/Footer';
 import Pagetitle from '../components/Pagetitle';
 import { CartContext } from '../context/CartContext';
 
-const dealProduct = [
-    { imageUrl: 'p.png', title: 'Blue Diamond Almonds ', price: '39' },
-    { imageUrl: 'p.png', title: 'Natures Own Wheat ', price: '40' },
-    { imageUrl: 'p.png', title: 'Tailgater Ham  Organic ', price: '40' },
-    { imageUrl: 'p.png', title: 'Kobita Almonds Salted ', price: '40' },
-];
+// const dealProduct = [
+//     { imageUrl: 'p.png', title: 'Blue Diamond Almonds ', price: '39' },
+//     { imageUrl: 'p.png', title: 'Natures Own Wheat ', price: '40' },
+//     { imageUrl: 'p.png', title: 'Tailgater Ham  Organic ', price: '40' },
+//     { imageUrl: 'p.png', title: 'Kobita Almonds Salted ', price: '40' },
+// ];
 
 function Cart() {
     const { cartItems } = useContext(CartContext);
