@@ -40,7 +40,7 @@ class NavShop extends Component {
                             </div>
                             <ul className="mb-1 top-content ps-3">
                                 <li className="p-1">
-                                    <Link to="/store-info" className="nav-content-bttn open-font">
+                                    <Link to="/shopmgn" className="nav-content-bttn open-font">
                                         <span className="text-700" style={{ color: '#071952', fontWeight: '600' }}>
                                             Store Information
                                         </span>

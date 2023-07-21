@@ -1,10 +1,30 @@
-import React, { Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 //import { Link } from 'react-router-dom';
 import Nav from '../components/NavShop';
-import Search from '../components/SearchShop';
+import jwt_decode from 'jwt-decode';
+import { useHistory } from 'react-router-dom';
 
 function ShopMgn() {
     const store = JSON.parse(sessionStorage.getItem('store'));
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const history = useHistory();
+
+    const checkRole = () => {
+        if (jwtToken) {
+            var decode = jwt_decode(jwtToken);
+
+            if (decode.role !== 'store') {
+                history.push('/logintwo');
+            }
+
+            history.push('/logintwo');
+        }
+    };
+
+    useEffect(() => {
+        checkRole();
+    });
+
     return (
         <Fragment>
             <div class="container-fluid " style={{ padding: '0' }}>
@@ -37,7 +57,7 @@ function ShopMgn() {
                             <div className="card-body">
                                 <div className="d-flex align-items-start align-items-sm-center gap-4">
                                     <img
-                                        src={store.logo}
+                                        src={store?.logo}
                                         alt="user-avatar"
                                         className="d-block rounded"
                                         height="100"
@@ -59,7 +79,7 @@ function ShopMgn() {
                                             disabled
                                             id="firstName"
                                             name="firstName"
-                                            value={store.storeName}
+                                            value={store?.storeName}
                                             autofocus
                                         />
                                     </div>
@@ -77,7 +97,7 @@ function ShopMgn() {
                                                 disabled
                                                 className="form-control"
                                                 placeholder="202 555 0111"
-                                                value={store.phone}
+                                                value={store?.phone}
                                             />
                                         </div>
                                     </div>
@@ -92,7 +112,7 @@ function ShopMgn() {
                                             disabled
                                             name="address"
                                             placeholder="Address"
-                                            value={store.address}
+                                            value={store?.address}
                                         />
                                     </div>
                                 </div>
