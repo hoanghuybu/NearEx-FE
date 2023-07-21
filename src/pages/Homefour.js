@@ -118,7 +118,7 @@ function Homefour() {
         getProduct();
         getCampaign();
         getBestSeller();
-        handleJWT();
+        //handleJWT();
     }, []);
 
     // console.log(listCampaign);
@@ -137,7 +137,10 @@ function Homefour() {
                                 <ul className="dropdown-menu show w-100 posr mt-0 h-100 pt-2 p-3 pb-1 shadow-none bg-lightgrey border-0 rounded-6">
                                     {listCategory.map((category) => (
                                         <li key={category.id}>
-                                            <a className="dropdown-item dropdown-toggle" href="/shop-4">
+                                            <a
+                                                className="dropdown-item dropdown-toggle"
+                                                href={'/shop-4?categoryId=' + category.id}
+                                            >
                                                 {category.categoryName}
                                             </a>
                                         </li>
@@ -172,13 +175,25 @@ function Homefour() {
                             </div>
 
                             <div className="col-lg-4 col-md-4 pe-2">
-                                <Addbannerfour title="Fresh vegitable" tag="30% OFF" bgimage="banner-7.jpg" />
+                                <Addbannerfour
+                                    title="Fresh vegetable"
+                                    tag="30% OFF"
+                                    bgimage="https://firebasestorage.googleapis.com/v0/b/nearex-1b8f7.appspot.com/o/images%2Fb1.png?alt=media&token=5a82fda9-9a2e-44b2-9d51-5dc8905617a8"
+                                />
                             </div>
                             <div className="col-lg-4 col-md-4 pe-2 ps-2">
-                                <Addbannerfour title="Healty  vegitable" tag="50% OFF" bgimage="banner-4.jpg" />
+                                <Addbannerfour
+                                    title="Healthy  vegetable"
+                                    tag="50% OFF"
+                                    bgimage="https://firebasestorage.googleapis.com/v0/b/nearex-1b8f7.appspot.com/o/images%2Fb2.png?alt=media&token=9fcf5aac-6ed0-4ccb-8a51-fc71ac028454"
+                                />
                             </div>
                             <div className="col-lg-4 col-md-4 ps-2">
-                                <Addbannerfour title="Bread 50% OFF" tag="20% OFF" bgimage="banner-5.jpg" />
+                                <Addbannerfour
+                                    title="Bread 50% OFF"
+                                    tag="20% OFF"
+                                    bgimage="https://firebasestorage.googleapis.com/v0/b/nearex-1b8f7.appspot.com/o/images%2Fb3.png?alt=media&token=52ddc121-d738-4819-b64d-e79dde5d8c53"
+                                />
                             </div>
                         </div>
                     </div>
@@ -257,33 +272,7 @@ function Homefour() {
                                                         className="w-100 mt-1 d-inline-block"
                                                     />
                                                 </a>
-                                                <div className="star d-inline text-left">
-                                                    <img
-                                                        src="assets/images/star.png"
-                                                        alt="star"
-                                                        className="w-10 me-1 float-start"
-                                                    />
-                                                    <img
-                                                        src="assets/images/star.png"
-                                                        alt="star"
-                                                        className="w-10 me-1 float-start"
-                                                    />
-                                                    <img
-                                                        src="assets/images/star.png"
-                                                        alt="star"
-                                                        className="w-10 me-1 float-start"
-                                                    />
-                                                    <img
-                                                        src="assets/images/star.png"
-                                                        alt="star"
-                                                        className="w-10 me-1 float-start"
-                                                    />
-                                                    <img
-                                                        src="assets/images/star-disable.png"
-                                                        alt="star"
-                                                        className="w-10 me-1 float-start"
-                                                    />
-                                                </div>
+
                                                 <div className="clearfix"></div>
                                                 <h2 className="mt-2">
                                                     <a
@@ -335,15 +324,18 @@ function Homefour() {
                                 <Catagorysldier />
                             </div>
 
-                            <div className="col-lg-4 col-md-4 mt-4 mb-lg-5 mb-3 product-wrap-bottom">
+                            <div className="col-lg-12 col-md-4 mt-4 mb-lg-5 mb-3 product-wrap-bottom">
                                 <h4 className="fw-700 font-xss mb-3 mt-2">Best Seller</h4>
 
                                 {listBestSeller.map((campaign) => (
                                     <div key={campaign.id} className="card border-0 rounded-6">
                                         <div className="card-content p-3 border border-bottom-0 border-light border-size-md">
                                             <div className="row">
-                                                <div className="col-sm-4 col-xs-4">
-                                                    <a href="/g-6" className="d-block text-center">
+                                                <div className="col-sm-2 col-xs-4">
+                                                    <a
+                                                        href={'/single-product-5?campaignId=' + campaign.id}
+                                                        className="d-block text-center"
+                                                    >
                                                         <img
                                                             src={campaign.product.productImg}
                                                             alt="product"
@@ -356,88 +348,15 @@ function Homefour() {
                                                         {campaign.product.netWeight + ' ' + campaign.product.unit}
                                                     </span>
                                                     <a
-                                                        href="/single-product"
+                                                        href={'/single-product-5?campaignId=' + campaign.id}
                                                         className="text-grey-900 fw-600 font-xssss lh-20 d-block ls-0 mb-0"
                                                     >
                                                         {campaign.product.productName}
                                                     </a>
+
                                                     <h6 className="font-xsss ls-3 fw-700 text-current float-start mt-1">
                                                         <span className="font-xsssss text-grey-500">VND</span>
                                                         {campaign.product.price}{' '}
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="col-lg-4 col-md-4 mt-4 mb-lg-5 mb-3 product-wrap-bottom">
-                                <h4 className="fw-700 font-xss mb-3 mt-2">Trend Seller</h4>
-
-                                {listProduct.map((product) => (
-                                    <div key={product.id} className="card border-0 rounded-6">
-                                        <div className="card-content p-3 border border-bottom-0 border-light border-size-md">
-                                            <div className="row">
-                                                <div className="col-sm-4 col-xs-4">
-                                                    <a href="/g-6" className="d-block text-center">
-                                                        <img
-                                                            src={product.productImg}
-                                                            alt="product"
-                                                            className="w-100 d-inline-block pt-2 rounded-6"
-                                                        />
-                                                    </a>
-                                                </div>
-                                                <div className="col-sm-8 col-xs-8 ps-0">
-                                                    <span className="ms-auto text-grey-500 fw-500 lh-1 font-xsssss mt-0 w-100 mb-2">
-                                                        {product.netWeight + ' ' + product.unit}
-                                                    </span>
-                                                    <a
-                                                        href="/single-product"
-                                                        className="text-grey-900 fw-600 font-xssss lh-20 d-block ls-0 mb-0"
-                                                    >
-                                                        {product.productName}
-                                                    </a>
-                                                    <h6 className="font-xsss ls-3 fw-700 text-current float-start mt-1">
-                                                        <span className="font-xsssss text-grey-500">VND</span>
-                                                        {product.price}{' '}
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="col-lg-4 col-md-4 mt-4 mb-lg-5 mb-3 product-wrap-bottom">
-                                <h4 className="fw-700 font-xss mb-3 mt-2">Feature Seller</h4>
-
-                                {listProduct.map((product) => (
-                                    <div key={product.id} className="card border-0 rounded-6">
-                                        <div className="card-content p-3 border border-bottom-0 border-light border-size-md">
-                                            <div className="row">
-                                                <div className="col-sm-4 col-xs-4">
-                                                    <a href="/g-6" className="d-block text-center">
-                                                        <img
-                                                            src={product.productImg}
-                                                            alt="product"
-                                                            className="w-100 d-inline-block pt-2 rounded-6"
-                                                        />
-                                                    </a>
-                                                </div>
-                                                <div className="col-sm-8 col-xs-8 ps-0">
-                                                    <span className="ms-auto text-grey-500 fw-500 lh-1 font-xsssss mt-0 w-100 mb-2">
-                                                        {product.netWeight + ' ' + product.unit}
-                                                    </span>
-                                                    <a
-                                                        href="/single-product"
-                                                        className="text-grey-900 fw-600 font-xssss lh-20 d-block ls-0 mb-0"
-                                                    >
-                                                        {product.productName}
-                                                    </a>
-                                                    <h6 className="font-xsss ls-3 fw-700 text-current float-start mt-1">
-                                                        <span className="font-xsssss text-grey-500">VND</span>
-                                                        {product.price}{' '}
                                                     </h6>
                                                 </div>
                                             </div>

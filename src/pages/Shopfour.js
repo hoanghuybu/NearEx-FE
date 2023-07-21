@@ -40,7 +40,7 @@ function Shopfour() {
                             <Productfilter />
                         </div>
                         <div className="col-lg-8">
-                            <div className="row m-0">
+                            {/* <div className="row m-0">
                                 <div className="card d-flex flex-row justify-content-start p-3 bg-greylight border-0 mb-3">
                                     <a href="/" className="mt-1">
                                         <span className="feather-grid text-grey-600 font-xs"></span>
@@ -55,11 +55,11 @@ function Shopfour() {
                                         <option defaultValue="3">Sort by price : high to low</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <Productlisting divClass="col-lg-4 col-md-4 col-xs-6 p-4 border-end border-bottom rounded-0 posr" />
 
-                            <div className="row">
+                            {/* <div className="row">
                                 <div className="col-lg-12 mt-5 mb-4">
                                     <nav aria-label="Page navigation example">
                                         <ul className="pagination justify-content-center">
@@ -96,7 +96,7 @@ function Shopfour() {
                                         </ul>
                                     </nav>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

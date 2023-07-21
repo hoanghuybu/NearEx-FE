@@ -301,7 +301,7 @@ function Singlefive() {
                         <div className="col-lg-3 col-md-5 ps-3">
                             <a href="/" className="d-inline-block">
                                 <img
-                                    src="https://via.placeholder.com/225x500.png"
+                                    src="https://firebasestorage.googleapis.com/v0/b/nearex-1b8f7.appspot.com/o/images%2Fverbanner.jpg?alt=media&token=eb612928-6fd4-40e0-a7ef-5270e4d02af3"
                                     alt="add"
                                     className="rounded-6 ovh w-100"
                                 />
@@ -326,44 +326,19 @@ function Singlefive() {
                                             <h4 className="ls-3 font-xsssss text-white text-uppercase bg-current fw-700 p-2 d-inline-block posa rounded-3">
                                                 30% off
                                             </h4>
-                                            <span className="posa right-0 top-0 mt-3 me-3 z-index-5">
-                                                <i className="ti-heart font-xs text-grey-500"></i>
-                                            </span>
+
                                             <div className="clearfix"></div>
-                                            <a href="/single-product" className="d-block text-center p-2">
+                                            <a
+                                                href={'/single-product-5?campaignId=' + related?.id}
+                                                className="d-block text-center p-2"
+                                            >
                                                 <img
                                                     src={related?.product?.productImg}
                                                     alt="product"
                                                     className="w-100 mt-1 d-inline-block"
                                                 />
                                             </a>
-                                            <div className="star d-inline text-left">
-                                                <img
-                                                    src="assets/images/star.png"
-                                                    alt="star"
-                                                    className="w-10 me-1 float-start"
-                                                />
-                                                <img
-                                                    src="assets/images/star.png"
-                                                    alt="star"
-                                                    className="w-10 me-1 float-start"
-                                                />
-                                                <img
-                                                    src="assets/images/star.png"
-                                                    alt="star"
-                                                    className="w-10 me-1 float-start"
-                                                />
-                                                <img
-                                                    src="assets/images/star.png"
-                                                    alt="star"
-                                                    className="w-10 me-1 float-start"
-                                                />
-                                                <img
-                                                    src="assets/images/star-disable.png"
-                                                    alt="star"
-                                                    className="w-10 me-1 float-start"
-                                                />
-                                            </div>
+
                                             <div className="clearfix"></div>
                                             <h2 className="mt-1">
                                                 <a

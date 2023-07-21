@@ -126,9 +126,9 @@ function Address() {
             <Upperheader />
             <Header />
             <Lowerheader />
-            <Dashnav title="Saved Address" />
+            <Dashnav title="Information" />
 
-            <div className="main-div pb-5">
+            <div className="main-div pb-5" style={{ marginBottom: '100px' }}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-4">
@@ -171,8 +171,12 @@ function Address() {
                                     <div>
                                         <input type="file" onChange={handlePreviewAvatar} className="form-control" />
                                     </div>
-                                    <h4 className="fw-700 text-grey-900 white-text font-sm mb-0 mt-3">Hurin Seary</h4>
-                                    <span className="fw-600 font-xssss text-grey-500 mt-0 d-block">@ swrryhurry</span>
+                                    <h4 className="fw-700 text-grey-900 white-text font-sm mb-0 mt-3">
+                                        {loginUser.userName}
+                                    </h4>
+                                    <span className="fw-600 font-xssss text-grey-500 mt-0 d-block">
+                                        @ {loginUser.userName}
+                                    </span>
                                 </div>
 
                                 <form onSubmit={handleCheckUser}>
@@ -321,6 +325,7 @@ function Address() {
                     </div>
                 </div>
             </div>
+
             <Footer />
         </Fragment>
     );

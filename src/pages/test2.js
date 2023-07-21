@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 //import { Link } from 'react-router-dom';
 import Nav from '../components/NavAdmin';
 import Search from '../components/SearchAdmin';
-import Footertwo from '../components/Footertwo';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -50,7 +49,7 @@ function test2() {
                             <div class="container-fluid mt-5">
                                 <div className="row">
                                     <div className="col-8 pb-2">
-                                        <div className="col d-flex">
+                                        <div className="col d-flex lo">
                                             <div
                                                 className="col-8 pe-2 p-3 pb-2"
                                                 style={{

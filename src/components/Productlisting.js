@@ -81,6 +81,7 @@ function Productlisting({ divClass }) {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const categoryId = searchParams.get('categoryId');
+    const storeId = searchParams.get('storeId');
 
     const getCategory = async (categoryId) => {
         try {
@@ -90,6 +91,17 @@ function Productlisting({ divClass }) {
             const responseData = await response.json();
             setListCampaign(responseData.results);
             // console.log(responseData);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getCampaignByStoreId = async (storeId) => {
+        try {
+            const response = await fetch(`https://swd-nearex.azurewebsites.net/api/campaigns/store?storeId=${storeId}`);
+            const responseData = await response.json();
+            console.log(responseData);
+            setListCampaign(responseData.results);
         } catch (error) {
             console.log(error);
         }
@@ -108,6 +120,8 @@ function Productlisting({ divClass }) {
     useEffect(() => {
         if (categoryId) {
             getCategory(categoryId);
+        } else if (storeId) {
+            getCampaignByStoreId(storeId);
         } else {
             getCampaign();
         }
@@ -125,13 +139,11 @@ function Productlisting({ divClass }) {
                             </div>
                         )}
                     </span>
-                    <Link to="/single-product-1" className="posa right-0 top-0 mt-3 me-3">
-                        <i className="ti-heart font-xs text-grey-500"></i>
-                    </Link>
+
                     <div className="clearfix"></div>
 
                     <Link
-                        to="/single-product-1"
+                        to={'/single-product-5?campaignId=' + campaign.id}
                         className="d-block text-center"
                         data-bs-toggle="modal"
                         data-bs-target="#productmodal"
@@ -142,16 +154,13 @@ function Productlisting({ divClass }) {
                             className="w-100 mt-3 mb-3 d-inline-block p-2 pt-0"
                         />
                     </Link>
-                    <div className="star d-inline text-left">
-                        <img src="assets/images/star.png" alt="star" className="w-10 me-1 float-start" />
-                        <img src="assets/images/star.png" alt="star" className="w-10 me-1 float-start" />
-                        <img src="assets/images/star.png" alt="star" className="w-10 me-1 float-start" />
-                        <img src="assets/images/star.png" alt="star" className="w-10 me-1 float-start" />
-                        <img src="assets/images/star-disable.png" alt="star" className="w-10 me-1 float-start" />
-                    </div>
+
                     <div className="clearfix"></div>
                     <h2 className="mt-2">
-                        <Link to="/single-product-1" className="text-grey-700 fw-600 font-xsss lh-22 d-block ls-0">
+                        <Link
+                            to={'/single-product-5?campaignId=' + campaign.id}
+                            className="text-grey-700 fw-600 font-xsss lh-22 d-block ls-0"
+                        >
                             {campaign.product.productName}
                         </Link>
                     </h2>

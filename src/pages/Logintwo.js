@@ -67,7 +67,7 @@ function Logintwo() {
                     coordinateString: '',
                 };
                 await createUser(googleUser);
-                history.push('/');
+                // history.push('/');
             }
         } catch (error) {
             console.log(error);
@@ -110,6 +110,7 @@ function Logintwo() {
             if (Object.keys(user).length > 0) {
                 sessionStorage.setItem('user', user);
                 sessionStorage.setItem('jwtToken', responseData.token);
+                // var decodeJwt =  jwt_decode(jwtToken);
             }
         } catch (error) {
             console.log(error);

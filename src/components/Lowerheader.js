@@ -95,7 +95,7 @@ function Lowerheader() {
                                                                 <NavDropdown.Item href="#action/3.4">Coffee</NavDropdown.Item>
                                                                 <NavDropdown.Item href="#action/3.5">Milk Plant-Based Milk</NavDropdown.Item>
                                                             </NavDropdown>
-                                                            
+                                                           
                                                             <Nav.Link href="#Fruits"> Fruits  Vegetables </Nav.Link>
                                                             <Nav.Link href="#Grocery"> Grocery  Staples </Nav.Link>
                                                             <Nav.Link href="#Househol"> Household Needs </Nav.Link>
@@ -106,7 +106,10 @@ function Lowerheader() {
                                                             <Nav.Link href="#Sour">Sour Cream and Dips </Nav.Link>
                                                             <Nav.Link href="#Yogur">Yogurt Seafood </Nav.Link> */}
                                                         {listCategory.map((category) => (
-                                                            <Nav.Link key={category.id} href="/shop-4">
+                                                            <Nav.Link
+                                                                key={category.id}
+                                                                href={'/shop-4?categoryId=' + category.id}
+                                                            >
                                                                 {category.categoryName}
                                                             </Nav.Link>
                                                         ))}
@@ -133,7 +136,7 @@ function Lowerheader() {
                                     </button>
                                     <ul className="navbar-nav">
                                         <li className="nav-item nav-item-toggle site-menu">
-                                            <a className="nav-link dropdown-toggle" href="/">
+                                            <a className="nav-link dropdown-toggle" href="/g-4">
                                                 Home{' '}
                                             </a>
                                             <ul className="sub-menu border-0 shadow-xss">
@@ -158,7 +161,7 @@ function Lowerheader() {
                                                 <li>
                                                     <Link className="dropdown-item" to="/g-4">
                                                         {' '}
-                                                        Grocery Four
+                                                        NearEx
                                                     </Link>
                                                 </li>
                                                 {/* <li>
@@ -182,7 +185,7 @@ function Lowerheader() {
                                             </a>
                                             <ul className="sub-menu">
                                                 <li>
-                                                    <a href="/">Shop Default</a>
+                                                    <a href="/">Shop</a>
                                                     <ul className="sub-mega-menu">
                                                         {/* <li>
                                                                 <Link to="/shop-1"> Shop One</Link>
@@ -194,7 +197,7 @@ function Lowerheader() {
                                                                 <Link to="/shop-3"> Shop Three </Link>
                                                             </li> */}
                                                         <li>
-                                                            <Link to="/shop-4"> Shop Four</Link>
+                                                            <Link to="/shop-4"> All Products</Link>
                                                         </li>
                                                         {/* <li>
                                                                 <Link to="/shop-5"> Shop Five </Link>
@@ -214,33 +217,11 @@ function Lowerheader() {
                                                             <Link to="/dashboard">My account</Link>
                                                         </li>
                                                         <li>
-                                                            <Link to="/saved">Wishlist</Link>
-                                                        </li>
-                                                        <li>
                                                             <Link to="/orders">Order Tracking</Link>
                                                         </li>
                                                     </ul>
                                                 </li>
-                                                <li>
-                                                    <a href="/">Product Page</a>
-                                                    <ul className="sub-mega-menu">
-                                                        {/* <li>
-                                                                <Link to="/single-product-1"> Single One</Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link to="/single-product-2"> Single Two </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link to="/single-product-3"> Single Three </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link to="/single-product-4"> Single Four</Link>
-                                                            </li> */}
-                                                        <li>
-                                                            <Link to="/single-product-5"> Single Five</Link>
-                                                        </li>
-                                                    </ul>
-                                                </li>
+
                                                 <li>
                                                     <a href="/">Authentication</a>
                                                     <ul className="sub-mega-menu">
@@ -253,12 +234,12 @@ function Lowerheader() {
                                                         <li>
                                                             <Link to="/forgottwo">Forgot Password</Link>
                                                         </li>
-                                                        <li>
+                                                        {/* <li>
                                                             <Link to="/verifytwo">Veryfy Page</Link>
                                                         </li>
                                                         <li>
                                                             <Link to="/notfound">404 Page</Link>
-                                                        </li>
+                                                        </li> */}
                                                     </ul>
                                                 </li>
                                                 <li>
@@ -304,7 +285,7 @@ function Lowerheader() {
                                                         Orders{' '}
                                                     </Link>
                                                 </li>
-                                                <li>
+                                                {/* <li>
                                                     <Link className="dropdown-item" to="/coupon">
                                                         {' '}
                                                         Coupon
@@ -321,7 +302,7 @@ function Lowerheader() {
                                                         {' '}
                                                         Notification{' '}
                                                     </Link>
-                                                </li>
+                                                </li> */}
                                                 <li>
                                                     <Link onClick={hanldeLogout} className="dropdown-item" to="">
                                                         {' '}

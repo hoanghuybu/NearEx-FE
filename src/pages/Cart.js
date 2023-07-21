@@ -36,6 +36,11 @@ function Cart() {
         sessionStorage.removeItem('cart');
         window.location.reload();
     };
+
+    const handleCheckout = () => {
+        var checkout = { ...newCart, orderQuantity: quantity };
+        sessionStorage.setItem('cart', JSON.stringify(checkout));
+    };
     return (
         <Fragment>
             <Headermob />
@@ -173,6 +178,7 @@ function Cart() {
 
                                 <a
                                     href="/Checkout"
+                                    onClick={handleCheckout}
                                     className="w-100 bg-current text-white rounded-6 text-center btn fw-700 ls-3 font-xssss p-3 text-uppercase"
                                 >
                                     Checkout

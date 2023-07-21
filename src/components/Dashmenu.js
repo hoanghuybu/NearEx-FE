@@ -17,6 +17,7 @@ function Dashmenu() {
     };
 
     //API Upload
+    //console.log(loginUser.userName);
 
     useEffect(() => {
         checkUser();
@@ -32,8 +33,8 @@ function Dashmenu() {
                         className="shadow-sm rounded-circle w-125"
                     />
                 </figure>
-                <h4 className="fw-700 text-grey-900 white-text font-sm mb-0 mt-3">Hurin Seary</h4>
-                <span className="fw-600 font-xssss text-grey-500 mt-0 d-block">@ swrryhurry</span>
+                <h4 className="fw-700 text-grey-900 white-text font-sm mb-0 mt-3">{loginUser.userName}</h4>
+                <span className="fw-600 font-xssss text-grey-500 mt-0 d-block">@ {loginUser.userName}</span>
             </div>
             <div className="card-body p-0 mt-4">
                 <ul className="list-inline mb-0">
@@ -58,7 +59,7 @@ function Dashmenu() {
                             <i className="ti-angle-right font-xsssss text-grey-500 ms-auto mt-1"></i>
                         </Link>
                     </li>
-                    <li className="list-inline-item d-block me-0">
+                    {/* <li className="list-inline-item d-block me-0">
                         <Link to="/coupon" className="pt-2 pb-2 d-flex align-items-center">
                             <i className="btn-round-sm bg-skype text-white feather-award font-xss me-3"></i>{' '}
                             <h4 className="fw-600 font-xsss ls-0 text-grey-700 mb-0 mt-0">Coupon</h4>
@@ -78,7 +79,7 @@ function Dashmenu() {
                             <h4 className="fw-600 font-xsss ls-0 text-grey-700 mb-0 mt-0">Notification</h4>
                             <i className="ti-angle-right font-xsssss text-grey-500 ms-auto mt-1"></i>
                         </Link>
-                    </li>
+                    </li> */}
                     <li className="list-inline-item d-block me-0">
                         <Link onClick={hanldeLogout} to="" className="pt-2 pb-2 d-flex align-items-center">
                             <i className="btn-round-sm bg-red-gradiant text-white feather-lock font-xss me-3"></i>{' '}
