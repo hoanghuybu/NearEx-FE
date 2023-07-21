@@ -18,6 +18,12 @@ function Lowerheader() {
             console.log(error);
         }
     };
+    const hanldeLogout = () => {
+        sessionStorage.clear();
+        if (window.location.pathname === '/') {
+            window.location.reload();
+        }
+    };
     useEffect(() => {
         getCategory();
     }, []);
@@ -317,7 +323,7 @@ function Lowerheader() {
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link className="dropdown-item" to="/">
+                                                    <Link onClick={hanldeLogout} className="dropdown-item" to="">
                                                         {' '}
                                                         Logout{' '}
                                                     </Link>
@@ -339,7 +345,7 @@ function Lowerheader() {
                                         <li className="nav-item text-grey-500 fw-500 font-xssss">
                                             Need help? Call Us :{' '}
                                             <a href="tel:03340005000" className="fw-700 text-current">
-                                                + 033 4000 5000
+                                                0934945650
                                             </a>
                                         </li>
                                     </ul>

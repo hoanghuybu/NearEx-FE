@@ -13,8 +13,7 @@ function Dashmenu() {
     };
 
     const hanldeLogout = () => {
-        sessionStorage.removeItem('jwtToken');
-        sessionStorage.removeItem('user');
+        sessionStorage.clear();
     };
 
     //API Upload

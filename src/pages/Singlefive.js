@@ -7,7 +7,6 @@ import Headermob from '../components/Headermob';
 import Upperheader from '../components/Upperheader';
 import Lowerheader from '../components/Lowerheader';
 import Footer from '../components/Footer';
-import { CartContext } from '../context/CartContext';
 
 const relatedProduct = [
     { imageUrl: 'p.png', title: 'Apple Juice Organic Food ', price: '39', weight: '200 gm' },
@@ -27,10 +26,11 @@ const singleProduct = [
 function Singlefive() {
     const [campaign, setCampaign] = useState({});
     const location = useLocation();
-    const { cartItems, setCartItems } = useContext(CartContext);
     const searchParams = new URLSearchParams(location.search);
     const campaignId = searchParams.get('campaignId');
     const [quantity, setQuantity] = useState(1);
+    const [msg, setMsg] = useState('');
+    const [listRelated, setListRelated] = useState([]);
 
     const handleDecrease = () => {
         if (quantity > 1) {
@@ -56,11 +56,46 @@ function Singlefive() {
     };
 
     const addToCart = () => {
-        const productWithQuantity = {
+        var productWithQuantity = {
             ...campaign,
             orderQuantity: quantity,
         };
-        setCartItems([...cartItems, productWithQuantity]);
+        const newCart = JSON.parse(sessionStorage.getItem('cart'));
+        if (newCart) {
+            if (productWithQuantity.id == newCart.id) {
+                var newQuantity = newCart.orderQuantity + productWithQuantity.orderQuantity;
+                if (newQuantity < productWithQuantity.quantity) {
+                    productWithQuantity = {
+                        ...productWithQuantity,
+                        orderQuantity: newQuantity,
+                    };
+                    const cart = JSON.stringify(productWithQuantity);
+                    sessionStorage.setItem('cart', cart);
+                    window.location.reload();
+                }
+            } else {
+                setMsg('Your shopping cart is full of products, please make payment before buying this product');
+            }
+        } else {
+            const cart = JSON.stringify(productWithQuantity);
+            sessionStorage.setItem('cart', cart);
+            window.location.reload();
+        }
+
+        // setCartItems([...cartItems, productWithQuantity]);
+    };
+
+    const getCategory = async () => {
+        try {
+            const response = await fetch(
+                `https://swd-nearex.azurewebsites.net/api/campaigns/cate?cateId=${campaign.product.categoryId}`,
+            );
+            const responseData = await response.json();
+            setListRelated(responseData.results);
+            // console.log(responseData);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const Productsettings = {
@@ -102,6 +137,7 @@ function Singlefive() {
 
     useEffect(() => {
         getCampaign(campaignId);
+        getCategory();
     }, []);
 
     return (
@@ -244,6 +280,7 @@ function Singlefive() {
                                         ADD to Cart
                                     </button>
                                 </div>
+                                {msg !== null && <h5 className="text-danger pt-1">{msg}</h5>}
                                 <div className="share-card d-flex mt-lg-5 mt-3">
                                     <h5 className="fw-600 text-grey-700 me-3 mt-2 lh-26 font-xssss">Share :</h5>
                                     <a href="/" className="btn-round btn-round-md ms-1 z-index-1 bg-facebook">
@@ -284,8 +321,8 @@ function Singlefive() {
                         <div className="col-lg-12">
                             <div className="card">
                                 <Slider {...Productsettings} className="slick-arrow-top">
-                                    {relatedProduct.map((value, index) => (
-                                        <div key={index} className="p-3 posr">
+                                    {listRelated?.map((related) => (
+                                        <div key={related?.id} className="p-3 posr">
                                             <h4 className="ls-3 font-xsssss text-white text-uppercase bg-current fw-700 p-2 d-inline-block posa rounded-3">
                                                 30% off
                                             </h4>
@@ -295,7 +332,7 @@ function Singlefive() {
                                             <div className="clearfix"></div>
                                             <a href="/single-product" className="d-block text-center p-2">
                                                 <img
-                                                    src={`assets/images/${value.imageUrl}`}
+                                                    src={related?.product?.productImg}
                                                     alt="product"
                                                     className="w-100 mt-1 d-inline-block"
                                                 />
@@ -333,14 +370,14 @@ function Singlefive() {
                                                     href="/single-product"
                                                     className="text-grey-700 fw-600 font-xsss lh-2 ls-0"
                                                 >
-                                                    {value.title}
+                                                    {related?.product?.productName}
                                                 </a>
                                             </h2>
                                             <h6 className="font-xss ls-3 fw-700 text-current d-flex">
                                                 <span className="font-xsssss text-grey-500">$</span>
-                                                {value.price}{' '}
+                                                {related?.product?.price}{' '}
                                                 <span className="ms-auto me-4 text-grey-500 fw-500 font-xsssss">
-                                                    {value.weight}
+                                                    {related?.product?.netWeight} {related?.product?.unit}
                                                 </span>
                                             </h6>
                                             <div className="cart-count d-flex mt-4 mb-2">

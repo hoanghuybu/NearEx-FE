@@ -9,7 +9,7 @@ function SearchResult({ data }) {
                     <span> {data.product.productName} </span>
                 </h4>
                 <span className="text-current">{data.campaignDetails[data.campaignDetails.length - 1].discount} </span>
-                <span className="unit-search">VND</span>
+                <span className="unit-search">VND / {data.product.netWeight + ' ' + data.product.unit}</span>
             </div>
         </Link>
     );

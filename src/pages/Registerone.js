@@ -1,5 +1,12 @@
 import React, { useState, Fragment } from 'react';
 
+const requestBody = {
+    accountSID: 'string',
+    authToken: 'string',
+    pathServiceSid: 'string',
+    phone: 'string',
+    token: 'string',
+};
 function Registerone() {
     const [userName, setUseName] = useState('');
     const [phone, setPhone] = useState('');
@@ -8,9 +15,27 @@ function Registerone() {
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
     const [msg, setMsg] = useState(null);
+
+    const checkPhoneNumber = async (registerObject) => {
+        var phone = registerObject.phone;
+        try {
+            const response = await fetch(`https://swd-nearex.azurewebsites.net/api/users/verification?phone=${phone}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+            });
+            const isUserVerified = await response.json();
+            return isUserVerified;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const createUser = async (registerObject) => {
         try {
-            const response = await fetch('https://swd-nearex.azurewebsites.net/api/users/create', {
+            const response = await fetch('https://swd-nearex.azurewebsites.net/api/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -19,8 +44,7 @@ function Registerone() {
             });
             const newUser = await response.json();
             if (Object.keys(newUser).length > 0) {
-                const user = JSON.stringify(newUser);
-                sessionStorage.setItem('user', user);
+                setMsg('Create Successfully');
             }
         } catch (error) {
             console.log(error);
@@ -42,9 +66,12 @@ function Registerone() {
             coordinateString: '',
         };
         if (password == confirm) {
-            console.log(registerObject);
-            await createUser(registerObject);
-            setMsg('Create Successfully');
+            var check = await checkPhoneNumber(registerObject);
+            if (check) {
+                setMsg('Your phone number already exists');
+            } else {
+                await createUser(registerObject);
+            }
         } else {
             setMsg("password and confirm doesn't match");
         }

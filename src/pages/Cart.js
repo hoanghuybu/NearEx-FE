@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 
 import Header from '../components/Header';
 import Headermob from '../components/Headermob';
@@ -6,7 +6,6 @@ import Upperheader from '../components/Upperheader';
 import Lowerheader from '../components/Lowerheader';
 import Footer from '../components/Footer';
 import Pagetitle from '../components/Pagetitle';
-import { CartContext } from '../context/CartContext';
 
 // const dealProduct = [
 //     { imageUrl: 'p.png', title: 'Blue Diamond Almonds ', price: '39' },
@@ -16,7 +15,27 @@ import { CartContext } from '../context/CartContext';
 // ];
 
 function Cart() {
-    const { cartItems } = useContext(CartContext);
+    const newCart = JSON.parse(sessionStorage.getItem('cart'));
+    const subtotal =
+        newCart?.campaignDetails?.length > 0 ? newCart.campaignDetails[newCart.campaignDetails.length - 1].discount : 0;
+    const [quantity, setQuantity] = useState(newCart?.orderQuantity || 0);
+    const total = subtotal * quantity;
+
+    const handleDecrease = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
+    };
+
+    const handleIncrease = () => {
+        if (quantity < 10) {
+            setQuantity(quantity + 1);
+        }
+    };
+    const handleRemoveCampaign = () => {
+        sessionStorage.removeItem('cart');
+        window.location.reload();
+    };
     return (
         <Fragment>
             <Headermob />
@@ -48,74 +67,76 @@ function Cart() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {cartItems?.map((cartItem) => (
-                                                <tr key={cartItem?.id}>
-                                                    <td>
-                                                        <div className="form-check mt-1">
-                                                            <input
-                                                                className="form-check-input"
-                                                                type="checkbox"
-                                                                value="option1"
-                                                            />
-                                                            <label className="text-grey-500 font-xssss"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td className="product-thumbnail text-start ps-0">
-                                                        <img
-                                                            src={cartItem?.product?.productImg}
-                                                            alt="product"
-                                                            className="w-80 d-inline-block pt-3 pb-3 bg-greylight rounded-6"
+                                            <tr key={newCart?.id}>
+                                                <td>
+                                                    <div className="form-check mt-1">
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            value="option1"
                                                         />
-                                                    </td>
+                                                        <label className="text-grey-500 font-xssss"></label>
+                                                    </div>
+                                                </td>
+                                                <td className="product-thumbnail text-start ps-0">
+                                                    <img
+                                                        src={newCart?.product?.productImg}
+                                                        alt="product"
+                                                        className="w-80 d-inline-block pt-3 pb-3 bg-greylight rounded-6"
+                                                    />
+                                                </td>
 
-                                                    <td className="product-p">
-                                                        <h6 className="text-grey-600 fw-600 font-xsss lh-22 d-block ls-0 mb-2">
-                                                            {cartItem?.product?.productName}
-                                                        </h6>
-                                                    </td>
-                                                    <td className="product-total-price">
-                                                        <h6 className="font-xs ls-3 fw-700 text-current float-start mt-1">
-                                                            <span className="font-xsssss text-grey-500">VND</span>{' '}
-                                                            {cartItem?.campaignDetails?.length > 0 && (
-                                                                <div>
-                                                                    {
-                                                                        cartItem.campaignDetails[
-                                                                            cartItem.campaignDetails.length - 1
-                                                                        ].discount
-                                                                    }
-                                                                </div>
-                                                            )}{' '}
-                                                        </h6>
-                                                    </td>
-                                                    <td className="product-remove text-right">
-                                                        <div className="cart-count float-end ">
-                                                            <div className="number">
-                                                                <span className="minus">-</span>
-                                                                <input
-                                                                    type="text"
-                                                                    className="open-font me-1 ms-1"
-                                                                    defaultValue={cartItem?.orderQuantity}
-                                                                />
-                                                                <span className="plus">+</span>
+                                                <td className="product-p">
+                                                    <h6 className="text-grey-600 fw-600 font-xsss lh-22 d-block ls-0 mb-2">
+                                                        {newCart?.product?.productName}
+                                                    </h6>
+                                                </td>
+                                                <td className="product-total-price">
+                                                    <h6 className="font-xs ls-3 fw-700 text-current float-start mt-1">
+                                                        <span className="font-xsssss text-grey-500">VND</span>{' '}
+                                                        {newCart?.campaignDetails?.length > 0 && (
+                                                            <div>
+                                                                {
+                                                                    newCart.campaignDetails[
+                                                                        newCart.campaignDetails.length - 1
+                                                                    ].discount
+                                                                }
                                                             </div>
+                                                        )}{' '}
+                                                    </h6>
+                                                </td>
+                                                <td className="product-remove text-right">
+                                                    <div className="cart-count float-end ">
+                                                        <div className="number">
+                                                            <span className="minus" onClick={handleDecrease}>
+                                                                -
+                                                            </span>
+                                                            <input
+                                                                type="text"
+                                                                className="open-font me-1 ms-1"
+                                                                value={quantity}
+                                                            />
+                                                            <span className="plus" onClick={handleIncrease}>
+                                                                +
+                                                            </span>
                                                         </div>
-                                                    </td>
-                                                    <td className="product-remove text-right">
-                                                        <a href="/Cart">
-                                                            <i className="ti-close font-xsss text-grey-500"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            ))}
+                                                    </div>
+                                                </td>
+                                                <td className="product-remove text-right">
+                                                    <a onClick={handleRemoveCampaign}>
+                                                        <i className="ti-close font-xsss text-grey-500"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <a
+                                {/* <a
                                     href="/Checkout"
                                     className="w-200 ms-auto bg-greylight text-grey-600 rounded-6 text-center btn fw-700 ls-3 font-xssss p-3 text-uppercase"
                                 >
                                     update
-                                </a>
+                                </a> */}
                             </div>
                         </div>
 
@@ -124,13 +145,24 @@ function Cart() {
                                 <div className="row">
                                     <div className="col-lg-12">
                                         <h4 className="text-grey-900 font-xssss fw-600 mb-2 d-flex">
-                                            Subtotal <span className="ms-auto text-grey-500">$ 59.99</span>
+                                            Subtotal{' '}
+                                            <span className="ms-auto text-grey-500">
+                                                {newCart?.campaignDetails?.length > 0 && (
+                                                    <div>
+                                                        {
+                                                            newCart.campaignDetails[newCart.campaignDetails.length - 1]
+                                                                .discount
+                                                        }
+                                                    </div>
+                                                )}
+                                                VND
+                                            </span>
                                         </h4>
                                         <h4 className="text-grey-900 font-xssss fw-600 mb-3 d-flex">
-                                            Tax <span className="ms-auto text-grey-500">$ 0.99</span>
+                                            Quantity <span className="ms-auto text-grey-500">{quantity}</span>
                                         </h4>
                                         <h4 className="text-grey-900 font-xss fw-600 mb-3 d-flex">
-                                            Total <span className="ms-auto">$ 60.99</span>
+                                            Total <span className="ms-auto">{total} VND</span>
                                         </h4>
                                         <h5 className="bg-greylight p-4 rounded-6 mt-3 mb-3 w-100 fw-600 text-grey-500 font-xssss d-flex">
                                             Apply Promo Code :{' '}

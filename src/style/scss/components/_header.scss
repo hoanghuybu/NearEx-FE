@@ -201,6 +201,18 @@
         display: inline-block;
         font-size: 10px;
     }
+    .dot-count-cart {
+        position: absolute;
+        top: 12px;
+        right: 7px;
+        border-radius: 5px;
+        width: 7px;
+        height: 7px;
+        line-height: 15px;
+        text-align: center;
+        display: inline-flex;
+        font-size: 10px;
+    }
 }
 .lower-header {
     z-index: 1000;

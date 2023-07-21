@@ -38,11 +38,11 @@ function test2() {
         <Fragment>
             <div class="container-fluid " style={{ padding: '0' }}>
                 <div class="row ml-0 mr-0">
-                    <div className="col-3 fixed-left">
+                    <div className="col-2 fixed-left">
                         <Nav />
                     </div>
                     <div
-                        className="col-9 pt-3"
+                        className="col-10 pt-3"
                         style={{ padding: '0', backgroundColor: '#efefefef', minHeight: '1000px' }}
                     >
                         <div className="col-lg-12 ">

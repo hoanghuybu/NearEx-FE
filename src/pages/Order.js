@@ -37,12 +37,12 @@ function Order() {
                                                             <i className="feather-chevrons-left"></i>
                                                         </a>
                                                     </li>
-                                                    <li className="page-item">
+                                                    <li className="page-item active">
                                                         <a className="page-link" href="/dashboard">
                                                             1
                                                         </a>
                                                     </li>
-                                                    <li className="page-item active">
+                                                    <li className="page-item">
                                                         <a className="page-link" href="/dashboard">
                                                             2
                                                         </a>

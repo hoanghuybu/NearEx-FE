@@ -76,7 +76,7 @@ function Logintwo() {
 
     const createUser = async (googleUser) => {
         try {
-            const response = await fetch('https://swd-nearex.azurewebsites.net/api/users/create', {
+            const response = await fetch('https://swd-nearex.azurewebsites.net/api/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -87,6 +87,7 @@ function Logintwo() {
             if (Object.keys(newUser).length > 0) {
                 const user = JSON.stringify(newUser);
                 sessionStorage.setItem('user', user);
+                sessionStorage.setItem('jwtToken', newUser.token);
             }
         } catch (error) {
             console.log(error);
@@ -96,7 +97,7 @@ function Logintwo() {
     const findUserByGoogleId = async (googleId) => {
         try {
             const response = await fetch(
-                `https://swd-nearex.azurewebsites.net/api/users/login-google?googleId=${googleId}`,
+                `https://swd-nearex.azurewebsites.net/api/users/google-authentication?googleId=${googleId}`,
                 {
                     method: 'POST',
                     headers: {
@@ -122,7 +123,7 @@ function Logintwo() {
             password: password,
         };
         try {
-            const response = await fetch('https://swd-nearex.azurewebsites.net/api/users/login', {
+            const response = await fetch('https://swd-nearex.azurewebsites.net/api/users/authentication', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -131,10 +132,14 @@ function Logintwo() {
             });
             const newUser = await response.json();
             if (Object.keys(newUser).length > 0) {
-                const user = JSON.stringify(newUser);
-                sessionStorage.setItem('user', user);
-                sessionStorage.setItem('jwtToken', newUser.token);
-                history.push('/');
+                if (newUser.error) {
+                    console.log(newUser.error);
+                } else {
+                    const user = JSON.stringify(newUser);
+                    sessionStorage.setItem('user', user);
+                    sessionStorage.setItem('jwtToken', newUser.token);
+                    history.push('/');
+                }
             }
             setTimeout(() => {
                 sessionStorage.removeItem('jwtToken');
@@ -193,7 +198,7 @@ function Logintwo() {
                                 </h2>
                                 <form onSubmit={handleLogin}>
                                     <div className="form-group icon-input mb-3">
-                                        <i className="font-sm ti-email text-grey-500 pe-0"></i>
+                                        <i className="font-sm ti-tablet text-grey-500 pe-0"></i>
                                         <input
                                             type="text"
                                             onChange={(e) => setPhone(e.target.value)}

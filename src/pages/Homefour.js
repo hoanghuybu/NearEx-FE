@@ -11,6 +11,7 @@ import Catagorysldier from '../components/Catagorysldier';
 import Addbannerone from '../components/Addbannerone';
 import Addbannerfour from '../components/Addbannerfour';
 import Sliderthree from '../components/Sliderthree';
+import jwt_decode from 'jwt-decode';
 
 // const dealProduct = [
 //     { imageUrl: 'p.png', title: 'Blue Diamond Almonds ', price: '39', weight: '400 gm' },
@@ -33,6 +34,7 @@ function Homefour() {
     const [listCategory, setListCategory] = useState([]);
     const [listProduct, setListProduct] = useState([]);
     const [listCampaign, setListCampaign] = useState([]);
+    const [listBestSeller, setListBestSeller] = useState([]);
 
     const dealProductsettings = {
         arrows: true,
@@ -93,10 +95,30 @@ function Homefour() {
             console.log(error);
         }
     };
+    const getBestSeller = async () => {
+        try {
+            const response = await fetch('https://swd-nearex.azurewebsites.net/api/campaigns/best-seller-campaign');
+            const responseData = await response.json();
+
+            setListBestSeller(responseData.results.slice(0, 5));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleJWT = () => {
+        var jwtToken = sessionStorage.getItem('jwtToken');
+        if (jwtToken) {
+            var userObject = jwt_decode(jwtToken);
+            console.log(userObject);
+        }
+    };
     useEffect(() => {
         getCategory();
         getProduct();
         getCampaign();
+        getBestSeller();
+        handleJWT();
     }, []);
 
     // console.log(listCampaign);
@@ -316,14 +338,14 @@ function Homefour() {
                             <div className="col-lg-4 col-md-4 mt-4 mb-lg-5 mb-3 product-wrap-bottom">
                                 <h4 className="fw-700 font-xss mb-3 mt-2">Best Seller</h4>
 
-                                {listProduct.map((product) => (
-                                    <div key={product.id} className="card border-0 rounded-6">
+                                {listBestSeller.map((campaign) => (
+                                    <div key={campaign.id} className="card border-0 rounded-6">
                                         <div className="card-content p-3 border border-bottom-0 border-light border-size-md">
                                             <div className="row">
                                                 <div className="col-sm-4 col-xs-4">
                                                     <a href="/g-6" className="d-block text-center">
                                                         <img
-                                                            src={product.productImg}
+                                                            src={campaign.product.productImg}
                                                             alt="product"
                                                             className="w-100 d-inline-block pt-2 rounded-6"
                                                         />
@@ -331,17 +353,17 @@ function Homefour() {
                                                 </div>
                                                 <div className="col-sm-8 col-xs-8 ps-0">
                                                     <span className="ms-auto text-grey-500 fw-500 lh-1 font-xsssss mt-0 w-100 mb-2">
-                                                        {product.netWeight + ' ' + product.unit}
+                                                        {campaign.product.netWeight + ' ' + campaign.product.unit}
                                                     </span>
                                                     <a
                                                         href="/single-product"
                                                         className="text-grey-900 fw-600 font-xssss lh-20 d-block ls-0 mb-0"
                                                     >
-                                                        {product.productName}
+                                                        {campaign.product.productName}
                                                     </a>
                                                     <h6 className="font-xsss ls-3 fw-700 text-current float-start mt-1">
                                                         <span className="font-xsssss text-grey-500">VND</span>
-                                                        {product.price}{' '}
+                                                        {campaign.product.price}{' '}
                                                     </h6>
                                                 </div>
                                             </div>

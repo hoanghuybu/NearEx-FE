@@ -25,7 +25,6 @@ function Address() {
         avatar: '',
         coordinateString: 'string',
     });
-    const [linkAvatar, setLinkAvatar] = useState('');
 
     const handlePreviewAvatar = (e) => {
         const file = e.target.files[0];
@@ -65,28 +64,20 @@ function Address() {
             });
             const results = await response.text();
             console.log(results);
-            setLinkAvatar(results);
-            console.log(linkAvatar);
-            console.log(results);
+            return results;
         } catch (error) {
             console.log(error);
         }
     };
 
-    const handleAvatar = async () => {
-        await uploadImage(avatar);
-        return linkAvatar;
-    };
-
     const handleUpdateUser = async (e) => {
         e.preventDefault();
-        if (avatar !== '') {
-            await handleAvatar();
-
+        if (avatar == '') {
             const response = await fetch(`https://swd-nearex.azurewebsites.net/api/users/${loginUser.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${sessionStorage.getItem('jwtToken')}`,
                 },
                 body: JSON.stringify(loginUser),
             });
@@ -100,13 +91,17 @@ function Address() {
                 console.log('Request failed:', response.status);
             }
         } else {
-            setLoginUser({ ...loginUser, avatar: linkAvatar });
-            const response = await fetch(`https://swd-nearex.azurewebsites.net/api/users/${loginUser.id}`, {
+            const result = await uploadImage(avatar);
+            const updateUser = { ...loginUser, avatar: result };
+            console.log(updateUser);
+            console.log(result);
+            const response = await fetch(`https://swd-nearex.azurewebsites.net/api/users/${updateUser.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${sessionStorage.getItem('jwtToken')}`,
                 },
-                body: JSON.stringify(loginUser),
+                body: JSON.stringify(updateUser),
             });
             const newUser = await response.json();
             if (newUser) {

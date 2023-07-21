@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
-import { CartContext } from '../context/CartContext';
 import HandlessTippy from '@tippyjs/react/headless';
 import SearchResult from './SearchResults';
 import useDebounce from '../hooks/useDebounce';
@@ -21,9 +20,11 @@ function Header() {
     const [searchResult, setSearchResult] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [showResult, setShowResult] = useState(true);
-    const { cartItems } = useContext(CartContext);
+    const [checkCart, setCheckCart] = useState(false);
 
     const debounce = useDebounce(searchValue, 500);
+
+    const newCart = JSON.parse(sessionStorage.getItem('cart'));
 
     const handleCheckUser = () => {
         var check = sessionStorage.getItem('jwtToken');
@@ -82,6 +83,12 @@ function Header() {
     useEffect(() => {
         handleCheckUser();
     }, []);
+
+    useEffect(() => {
+        if (newCart) {
+            setCheckCart(true);
+        }
+    }, [newCart]);
 
     return (
         <div className={`header-wrapper pt-4 pb-4 z-index-5  d-none d-lg-block bg-white `}>
@@ -161,6 +168,8 @@ function Header() {
                                 <i className="feather-heart text-grey-500"></i>
                             </a>
                             <Button onClick={handleCart} className="nav-icon bg-transparent border-0 mt-n2 posr">
+                                {checkCart && <span className="dot-count-cart bg-warning"></span>}
+
                                 <i className="feather-shopping-bag text-grey-500"></i>
                             </Button>
 
@@ -181,53 +190,52 @@ function Header() {
                                             {' '}
                                             Cart
                                         </h4>
-                                        {cartItems?.map((cartItem) => (
-                                            <div key={cartItem.id} className="row mb-3">
-                                                <div className="col-md-5 col-xs-5">
-                                                    <a href="/" className="d-block text-center">
-                                                        <img
-                                                            src={cartItem?.product?.productImg}
-                                                            alt="product"
-                                                            className="w-100 d-inline-block pt-3 pb-3 bg-greylight rounded-6"
-                                                        />
-                                                    </a>
-                                                </div>
-                                                <div className="col-md-7 col-xs-7 ps-0">
-                                                    <span className="ms-auto text-grey-500 fw-500 lh-1 font-xsssss mt-0 w-100 mb-2">
-                                                        {cartItem?.product?.netWeight + ' ' + cartItem?.product?.unit}
-                                                    </span>
-                                                    <a
-                                                        href="/"
-                                                        className="text-grey-900 fw-600 font-xsss lh-22 d-block ls-0 mb-2 pe-lg-4"
-                                                    >
-                                                        {cartItem?.product?.productName}
-                                                    </a>
-                                                    <h6 className="font-xs ls-3 fw-700 text-current float-start mt-1">
-                                                        <span className="font-xsssss text-grey-500">VND</span>
-                                                        {cartItem?.campaignDetails?.length > 0 && (
-                                                            <div>
-                                                                {
-                                                                    cartItem.campaignDetails[
-                                                                        cartItem.campaignDetails.length - 1
-                                                                    ].discount
-                                                                }
-                                                            </div>
-                                                        )}{' '}
-                                                    </h6>
-                                                    <div className="cart-count float-end ">
-                                                        <div className="number">
-                                                            <span className="minus">-</span>
-                                                            <input
-                                                                type="text"
-                                                                className="open-font ms-1 me-1"
-                                                                defaultValue="1"
-                                                            />
-                                                            <span className="plus">+</span>
+
+                                        <div key={newCart?.id} className="row mb-3">
+                                            <div className="col-md-5 col-xs-5">
+                                                <a href="/" className="d-block text-center">
+                                                    <img
+                                                        src={newCart?.product?.productImg}
+                                                        alt="product"
+                                                        className="w-100 d-inline-block pt-3 pb-3 bg-greylight rounded-6"
+                                                    />
+                                                </a>
+                                            </div>
+                                            <div className="col-md-7 col-xs-7 ps-0">
+                                                <span className="ms-auto text-grey-500 fw-500 lh-1 font-xsssss mt-0 w-100 mb-2">
+                                                    {newCart?.product?.netWeight + ' ' + newCart?.product?.unit}
+                                                </span>
+                                                <a
+                                                    href="/"
+                                                    className="text-grey-900 fw-600 font-xsss lh-22 d-block ls-0 mb-2 pe-lg-4"
+                                                >
+                                                    {newCart?.product?.productName}
+                                                </a>
+                                                <h6 className="font-xs ls-3 fw-700 text-current float-start mt-1">
+                                                    <span className="font-xsssss text-grey-500">VND</span>
+                                                    {newCart?.campaignDetails?.length > 0 && (
+                                                        <div>
+                                                            {
+                                                                newCart.campaignDetails[
+                                                                    newCart.campaignDetails.length - 1
+                                                                ].discount
+                                                            }
                                                         </div>
+                                                    )}{' '}
+                                                </h6>
+                                                <div className="cart-count float-end ">
+                                                    <div className="number">
+                                                        <span className="minus">-</span>
+                                                        <input
+                                                            type="text"
+                                                            className="open-font ms-1 me-1"
+                                                            defaultValue={newCart?.orderQuantity}
+                                                        />
+                                                        <span className="plus">+</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                        ))}
+                                        </div>
                                     </div>
                                     <div className="card w-100 p-3 pt-4 border-0 text-start mt-auto">
                                         <div className="row">
@@ -263,7 +271,7 @@ function Header() {
                                 <Link to="/dashboard" className=" nav-icon p-0">
                                     <img
                                         src={
-                                            loginUser.avatar !== ''
+                                            loginUser.avatar !== '' || loginUser.avatar !== null
                                                 ? loginUser.avatar
                                                 : 'https://via.placeholder.com/50x50.png'
                                         }

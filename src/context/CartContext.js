@@ -3,9 +3,9 @@ import React, { createContext, useState } from 'react';
 const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-    const [cartItems, setCartItems] = useState([]);
+    const [newCart, setNewCart] = useState(false);
 
-    return <CartContext.Provider value={{ cartItems, setCartItems }}>{children}</CartContext.Provider>;
+    return <CartContext.Provider value={{ newCart, setNewCart }}>{children}</CartContext.Provider>;
 };
 
 export { CartContext, CartProvider };
