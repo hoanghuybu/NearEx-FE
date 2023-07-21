@@ -54,6 +54,9 @@ import Singlefive from './pages/Singlefive';
 
 import Test from './pages/test';
 import Test2 from './pages/test2';
+import ShopMgn from './pages/ShopMgn';
+import AddProduct from './pages/AddProducts';
+import ProductMgn from './pages/ProductMgn';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
@@ -114,6 +117,10 @@ class Root extends Component {
 
                         <Route exact path={`${process.env.PUBLIC_URL}/test`} component={Test} />
                         <Route exact path={`${process.env.PUBLIC_URL}/test2`} component={Test2} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/shopmgn`} component={ShopMgn} />
+
+                        <Route exact path={`${process.env.PUBLIC_URL}/product-mgn`} component={ProductMgn} />
+                        <Route exact path={`${process.env.PUBLIC_URL}/add-product`} component={AddProduct} />
                     </Switch>
                 </BrowserRouter>
             </CartProvider>

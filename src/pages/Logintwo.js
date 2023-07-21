@@ -110,7 +110,6 @@ function Logintwo() {
             if (Object.keys(user).length > 0) {
                 sessionStorage.setItem('user', user);
                 sessionStorage.setItem('jwtToken', responseData.token);
-                // var decodeJwt =  jwt_decode(jwtToken);
             }
         } catch (error) {
             console.log(error);
@@ -139,7 +138,13 @@ function Logintwo() {
                     const user = JSON.stringify(newUser);
                     sessionStorage.setItem('user', user);
                     sessionStorage.setItem('jwtToken', newUser.token);
-                    history.push('/');
+                    var decodeJwt = jwt_decode(newUser.token);
+                    console.log(decodeJwt.role);
+                    // if( decodeJwt.role == 'customer'){
+                    //     history.push('/');
+                    // } else if(decodeJwt.role == 'admin') {
+                    //     history.push('/test2')
+                    // }
                 }
             }
             setTimeout(() => {
@@ -267,6 +272,12 @@ function Logintwo() {
                                             />{' '}
                                             Sign in with Google
                                         </Link>
+                                        <h6 className="text-grey-500 font-xssss fw-500 mt-0 mb-0 lh-32">
+                                            Are you store manager ?
+                                            <a href="/loginone" className="fw-700 ms-1">
+                                                Login
+                                            </a>
+                                        </h6>
                                     </div>
                                     {/* <div className="form-group mb-1"><a href="/" className="text-start font-xsss style2-input text-white fw-600 bg-twiiter border-0 p-0 "><img src="assets/images/icon-3.png" alt="icon" className="ms-2 w-40 mb-1 me-5" /> Sign in with Facebook</a></div> */}
                                 </div>

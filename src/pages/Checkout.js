@@ -40,35 +40,35 @@ function Checkout() {
         setMethod(value);
     };
 
-    const handlePayment = () => {
-        const currentUrl = window.location.href;
-        const schema = new SimpleSchema({
-            amount: {
-                type: SimpleSchema.Integer,
-                min: 1,
-            },
-            orderId: String,
-            orderInfo: String,
-            returnUrl: String,
-            cancelUrl: String,
-            vnp_TmnCode: String,
-            vnp_HashSecret: String,
-        });
-        const vnpayConfig = {
-            amount: 100000, // Số tiền thanh toán (đơn vị là VNĐ)
-            orderId: Math.floor(Math.random() * 100)
-                .toString()
-                .padStart(2, '0'), // Mã đơn hàng, duy nhất cho mỗi lần thanh toán
-            orderInfo: 'Thanh toán đơn hàng số 12345', // Thông tin đơn hàng
-            returnUrl: currentUrl + '?status=sucess', // URL callback khi thanh toán thành công hoặc thất bại
-            cancelUrl: currentUrl + '?status=cancel', // URL callback khi hủy thanh toán
-            vnp_TmnCode: '8LBCZB47', // Mã merchant (cung cấp bởi VNPAY)
-            vnp_HashSecret: 'WUHNTRELXGKMAMTEVFGCORMXHCKVFPVB', // Khóa bí mật (cung cấp bởi VNPAY)
-        };
-        schema.validate(vnpayConfig);
-        const vnpayUrl = new VNPay(vnpayConfig);
-        window.location.href = vnpayUrl; // Chuyển hướng người dùng đến cổng thanh toán của VNPAY
-    };
+    // const handlePayment = () => {
+    //     const currentUrl = window.location.href;
+    //     const schema = new SimpleSchema({
+    //         amount: {
+    //             type: SimpleSchema.Integer,
+    //             min: 1,
+    //         },
+    //         orderId: String,
+    //         orderInfo: String,
+    //         returnUrl: String,
+    //         cancelUrl: String,
+    //         vnp_TmnCode: String,
+    //         vnp_HashSecret: String,
+    //     });
+    //     const vnpayConfig = {
+    //         amount: 100000, // Số tiền thanh toán (đơn vị là VNĐ)
+    //         orderId: Math.floor(Math.random() * 100)
+    //             .toString()
+    //             .padStart(2, '0'), // Mã đơn hàng, duy nhất cho mỗi lần thanh toán
+    //         orderInfo: 'Thanh toán đơn hàng số 12345', // Thông tin đơn hàng
+    //         returnUrl: currentUrl + '?status=sucess', // URL callback khi thanh toán thành công hoặc thất bại
+    //         cancelUrl: currentUrl + '?status=cancel', // URL callback khi hủy thanh toán
+    //         vnp_TmnCode: '8LBCZB47', // Mã merchant (cung cấp bởi VNPAY)
+    //         vnp_HashSecret: 'WUHNTRELXGKMAMTEVFGCORMXHCKVFPVB', // Khóa bí mật (cung cấp bởi VNPAY)
+    //     };
+    //     schema.validate(vnpayConfig);
+    //     const vnpayUrl = new VNPay(vnpayConfig);
+    //     window.location.href = vnpayUrl; // Chuyển hướng người dùng đến cổng thanh toán của VNPAY
+    // };
 
     const handleOrder = async () => {
         const currentDate = new Date();
