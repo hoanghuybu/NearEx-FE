@@ -47,7 +47,7 @@ class NavShop extends Component {
                                     </Link>
                                 </li>
                                 <li className="p-1">
-                                    <Link to="/home" className="nav-content-bttn open-font">
+                                    <Link to="/sale-report" className="nav-content-bttn open-font">
                                         <span className="text-700" style={{ color: '#071952', fontWeight: '600' }}>
                                             Sales Report
                                         </span>

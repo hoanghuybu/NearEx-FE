@@ -1,14 +1,15 @@
 import React, { useEffect, useState, Fragment } from 'react';
 //import { Link } from 'react-router-dom';
 import Nav from '../components/NavShop';
-import Search from '../components/SearchShop';
 
 function ProductMgn() {
     const [listProduct, setListProduct] = useState([]);
     const store = JSON.parse(sessionStorage.getItem('store'));
     const getProductByStoreId = async () => {
         try {
-            const response = await fetch(`https://swd-nearex.azurewebsites.net/api/products?StoreId=${store.id}`);
+            const response = await fetch(
+                `https://swd-nearex.azurewebsites.net/api/products?PageSize=50&StoreId=${store.id}`,
+            );
             const responseData = await response.json();
             setListProduct(responseData.results);
         } catch (error) {
@@ -19,6 +20,8 @@ function ProductMgn() {
     useEffect(() => {
         getProductByStoreId();
     }, []);
+
+    console.log(listProduct);
     return (
         <Fragment>
             <div class="container-fluid " style={{ padding: '0' }}>
