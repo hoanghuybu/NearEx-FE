@@ -3,10 +3,18 @@ import React, { useEffect, Fragment } from 'react';
 import Nav from '../components/NavShop';
 // import jwt_decode from 'jwt-decode';
 // import { useHistory } from 'react-router-dom';
+// import GoogleMapReact from 'google-map-react';
 
+// const defaultProps = {
+//     center: {
+//         lat: 10.99835602,
+//         lgn: 77.01502627,
+//     },
+//     zoom: 11,
+// };
 function ShopMgn() {
     const store = JSON.parse(sessionStorage.getItem('store'));
-    const jwtToken = sessionStorage.getItem('jwtToken');
+    // const jwtToken = sessionStorage.getItem('jwtToken');
     // const history = useHistory();
 
     // const checkRole = () => {
@@ -116,6 +124,13 @@ function ShopMgn() {
                                         />
                                     </div>
                                 </div>
+                                {/* <div style={{ height: '300px', width: '100%' }}>
+                                    <GoogleMapReact
+                                        bootstrapURLKeys={{ key: 'AIzaSyB6RejAwT-vFVuBfGZTZ6CDMEmyM2NwpTw' }}
+                                        defaultCenter={defaultProps.center}
+                                        defaultZoom={defaultProps.zoom}
+                                    ></GoogleMapReact>
+                                </div> */}
                             </div>
                         </div>
                     </div>

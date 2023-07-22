@@ -25,6 +25,10 @@ function Header() {
     const debounce = useDebounce(searchValue, 500);
 
     const newCart = JSON.parse(sessionStorage.getItem('cart'));
+    const subtotal =
+        newCart?.campaignDetails?.length > 0 ? newCart.campaignDetails[newCart.campaignDetails.length - 1].discount : 0;
+    const [quantity, setQuantity] = useState(newCart?.orderQuantity || 0);
+    const total = subtotal * quantity;
 
     const handleCheckUser = () => {
         var check = sessionStorage.getItem('jwtToken');
@@ -99,11 +103,11 @@ function Header() {
                             <img src="assets/images/logo.png" alt="logo" className="logo" />
                         </Link>
                         <div className="header-search ms-auto me-2 d-flex">
-                            <Button onClick={handleModel} className="location me-3 bg-transparent border-0">
+                            {/* <Button onClick={handleModel} className="location me-3 bg-transparent border-0">
                                 <span className="fw-600 font-xssss text-grey-400">Delivery to</span>
                                 <i className="feather-map-pin text-grey-500"></i>
                                 <h4 className="fw-600 font-xssss mt-0 text-white mb-0 ls-0">Downtown New York..</h4>
-                            </Button>
+                            </Button> */}
                             <Modal
                                 size="sm"
                                 aria-labelledby="contained-modal-title-vcenter"
@@ -160,13 +164,13 @@ function Header() {
                                     />
                                 </div>
                             </HandlessTippy>
-                            <a href="/Notification" className="nav-icon">
+                            {/* <a href="/Notification" className="nav-icon">
                                 <span className="dot-count bg-warning"></span>
                                 <i className="feather-bell text-grey-500"></i>
                             </a>
                             <a href="/Saved" className="nav-icon">
                                 <i className="feather-heart text-grey-500"></i>
-                            </a>
+                            </a> */}
                             <Button onClick={handleCart} className="nav-icon bg-transparent border-0 mt-n2 posr">
                                 {checkCart && <span className="dot-count-cart bg-warning"></span>}
 
@@ -241,28 +245,31 @@ function Header() {
                                         <div className="row">
                                             <div className="col-lg-12">
                                                 <h4 className="text-grey-900 font-xssss fw-600 mb-2 d-flex">
-                                                    Subtotal <span className="ms-auto text-grey-500">$ 59.99</span>
+                                                    Subtotal <span className="ms-auto text-grey-500">{subtotal}</span>
                                                 </h4>
                                                 <h4 className="text-grey-900 font-xssss fw-600 mb-3 d-flex">
-                                                    Tax <span className="ms-auto text-grey-500">$ 0.99</span>
+                                                    Quantity{' '}
+                                                    <span className="ms-auto text-grey-500">
+                                                        {newCart?.orderQuantity}
+                                                    </span>
                                                 </h4>
                                                 <h4 className="text-grey-900 font-xss fw-600 mb-3 d-flex">
-                                                    Total <span className="ms-auto">$ 60.99</span>
+                                                    Total <span className="ms-auto">{total}</span>
                                                 </h4>
-                                                <h5 className="bg-greylight p-4 rounded-6 mt-3 mb-3 w-100 fw-600 text-grey-500 font-xssss d-flex">
+                                                {/* <h5 className="bg-greylight p-4 rounded-6 mt-3 mb-3 w-100 fw-600 text-grey-500 font-xssss d-flex">
                                                     Apply Promo Code :{' '}
                                                     <span className="ms-auto fw-700 text-grey-900">2 Promos</span>
-                                                </h5>
+                                                </h5> */}
                                             </div>
                                         </div>
 
-                                        <a
+                                        {/* <a
                                             href="/Checkout"
                                             className="w-100 bg-current text-white rounded-6 text-center btn"
                                             id="checkout"
                                         >
                                             Checkout
-                                        </a>
+                                        </a> */}
                                     </div>
                                 </Modal.Body>
                             </Modal>
