@@ -1,29 +1,29 @@
 import React, { useEffect, Fragment } from 'react';
 //import { Link } from 'react-router-dom';
 import Nav from '../components/NavShop';
-import jwt_decode from 'jwt-decode';
-import { useHistory } from 'react-router-dom';
+// import jwt_decode from 'jwt-decode';
+// import { useHistory } from 'react-router-dom';
 
 function ShopMgn() {
     const store = JSON.parse(sessionStorage.getItem('store'));
     const jwtToken = sessionStorage.getItem('jwtToken');
-    const history = useHistory();
+    // const history = useHistory();
 
-    const checkRole = () => {
-        if (jwtToken) {
-            var decode = jwt_decode(jwtToken);
+    // const checkRole = () => {
+    //     if (jwtToken) {
+    //         var decode = jwt_decode(jwtToken);
 
-            if (decode.role !== 'store') {
-                history.push('/logintwo');
-            }
+    //         if (decode.role !== 'store') {
+    //             history.push('/logintwo');
+    //         }
 
-            history.push('/logintwo');
-        }
-    };
+    //         history.push('/logintwo');
+    //     }
+    // };
 
-    useEffect(() => {
-        checkRole();
-    });
+    // useEffect(() => {
+    //     checkRole();
+    // });
 
     return (
         <Fragment>
